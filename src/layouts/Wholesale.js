@@ -69,14 +69,15 @@ export default function Dashboard(props) {
     return activeNavbar;
   };
   const getRoutes = (routes) => {
+    console.log('IS THIS WORKING');
     return routes.map((prop, key) => {
       if (prop.collapse) {
         return getRoutes(prop.views);
       }
-      if (prop.category === 'account') {
+      if (prop.category === 'wholesale-account') {
         return getRoutes(prop.views);
       }
-      if (prop.layout === '/admin') {
+      if (prop.layout === '/wholesale') {
         return (
           <Route
             path={prop.layout + prop.path}
@@ -89,13 +90,21 @@ export default function Dashboard(props) {
       }
     });
   };
+
+  const getWholesaleRoutes = (routes) => {
+    return routes.filter((route) => {
+      return (
+        route.layout === '/wholesale' || route.category === 'wholesale-account'
+      );
+    });
+  };
   const { isOpen, onOpen, onClose } = useDisclosure();
   document.documentElement.dir = 'ltr';
   // Chakra Color Mode
   return (
     <ChakraProvider theme={theme} resetCss={false}>
       <Sidebar
-        routes={routes}
+        routes={getWholesaleRoutes(routes)}
         logoText={'PURITY UI DASHBOARD'}
         display='none'
         sidebarVariant={sidebarVariant}
