@@ -15,19 +15,33 @@ import {
   FormErrorMessage,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 // Assets
 import signInImage from "assets/img/signInImage.png";
 
-function SignIn() {
+function Login() {
   // Chakra color mode
   const titleColor = useColorModeValue("teal.300", "teal.200");
   const textColor = useColorModeValue("gray.400", "white");
 
+  console.log("WE ARE IN THE LOGIN");
+  const schema = yup
+    .object({
+      email: yup
+        .string()
+        .required("Email is a required field")
+        .email("Email is invalid"),
+      password: yup.number().positive().integer().required(),
+    })
+    .required();
   const {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
-  } = useForm();
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
   function onSubmit(values) {
     console.log("the submit values:", values);
@@ -93,13 +107,7 @@ function SignIn() {
                   placeholder="Your email adress"
                   size="lg"
                   id="email"
-                  {...register("email", {
-                    required: "This is required",
-                    minLength: {
-                      value: 4,
-                      message: "Minimum length should be 4",
-                    },
-                  })}
+                  {...register("email")}
                 />
                 <FormErrorMessage mb="24px">
                   {errors.email?.message}
@@ -122,13 +130,7 @@ function SignIn() {
                   placeholder="Your password"
                   size="lg"
                   id="password"
-                  {...register("password", {
-                    required: "This is required",
-                    minLength: {
-                      value: 4,
-                      message: "Minimum length should be 4",
-                    },
-                  })}
+                  {...register("password")}
                 />
                 <FormErrorMessage mb="36px">
                   {errors.password?.message}
@@ -161,7 +163,7 @@ function SignIn() {
                   }}
                   isLoading={isSubmitting}
                 >
-                  SIGN IN
+                  LOGIN
                 </Button>
               </FormControl>
             </form>
@@ -175,7 +177,7 @@ function SignIn() {
               <Text color={textColor} fontWeight="medium">
                 Don't have an account?
                 <Link color={titleColor} as="span" ms="5px" fontWeight="bold">
-                  Sign Up
+                  Register
                 </Link>
               </Text>
             </Flex>
@@ -204,4 +206,4 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+export default Login;

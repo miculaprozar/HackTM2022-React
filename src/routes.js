@@ -4,7 +4,7 @@ import Tables from "views/Dashboard/Tables";
 import Billing from "views/Dashboard/Billing";
 import RTLPage from "views/Dashboard/RTL";
 import Profile from "views/Dashboard/Profile";
-import SignIn from "views/Auth/SignIn.js";
+import Login from "views/Auth/Login.js";
 import SignUp from "views/Auth/SignUp.js";
 
 import {
@@ -66,11 +66,11 @@ var dashRoutes = [
         layout: "/admin",
       },
       {
-        path: "/signin",
-        name: "Sign In",
+        path: "/login",
+        name: "Login",
         rtlName: "لوحة القيادة",
         icon: <DocumentIcon color="inherit" />,
-        component: SignIn,
+        component: Login,
         layout: "/auth",
       },
       {
