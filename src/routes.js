@@ -30,20 +30,28 @@ import {
   RocketIcon,
   SupportIcon,
 } from 'components/Icons/Icons';
+import ProducersMap from 'views/Wholesale/ProducersMap';
 
 var dashRoutes = [
   {
     path: '/producers',
     name: 'Local Farmers',
-    icon: <HomeIcon color='inherit' />,
+    icon: <HomeIcon color="inherit" />,
     component: LocalFarmers,
+    layout: '/wholesale',
+  },
+  {
+    path: '/producer-map',
+    name: 'Producer Map',
+    icon: <RocketIcon color="inherit" />,
+    component: ProducersMap,
     layout: '/wholesale',
   },
   {
     path: '/producer/:producerId',
     name: 'Local Farmers',
     hidden: true,
-    icon: <HomeIcon color='inherit' />,
+    icon: <HomeIcon color="inherit" />,
     component: ProducerDetails,
     layout: '/wholesale',
   },
@@ -87,7 +95,7 @@ var dashRoutes = [
       {
         path: '/profile',
         name: 'My shop account',
-        icon: <PersonIcon color='inherit' />,
+        icon: <PersonIcon color="inherit" />,
         secondaryNavbar: true,
         component: WholesaleProfile,
         layout: '/wholesale',
@@ -95,7 +103,7 @@ var dashRoutes = [
       {
         path: '/contracts',
         name: 'Contracts',
-        icon: <PersonIcon color='inherit' />,
+        icon: <PersonIcon color="inherit" />,
         secondaryNavbar: true,
         component: Contracts,
         layout: '/wholesale',
@@ -103,7 +111,7 @@ var dashRoutes = [
       {
         path: '/comands',
         name: 'Contracts',
-        icon: <CreditIcon color='inherit' />,
+        icon: <CreditIcon color="inherit" />,
         secondaryNavbar: true,
         component: Comands,
         layout: '/wholesale',
@@ -119,7 +127,7 @@ var dashRoutes = [
       {
         path: '/profile',
         name: 'My shop account',
-        icon: <PersonIcon color='inherit' />,
+        icon: <PersonIcon color="inherit" />,
         secondaryNavbar: true,
         component: ProducerProfile,
         layout: '/producer',
@@ -127,7 +135,7 @@ var dashRoutes = [
       {
         path: '/contracts',
         name: 'Contracts',
-        icon: <PersonIcon color='inherit' />,
+        icon: <PersonIcon color="inherit" />,
         secondaryNavbar: true,
         component: ProducerContracts,
         layout: '/producer',
@@ -135,7 +143,7 @@ var dashRoutes = [
       {
         path: '/comands',
         name: 'Comands',
-        icon: <CreditIcon color='inherit' />,
+        icon: <CreditIcon color="inherit" />,
         secondaryNavbar: true,
         component: ProducerComands,
         layout: '/producer',
@@ -153,7 +161,7 @@ var dashRoutes = [
         path: '/signin',
         name: 'Sign In',
         rtlName: 'لوحة القيادة',
-        icon: <DocumentIcon color='inherit' />,
+        icon: <DocumentIcon color="inherit" />,
         component: SignIn,
         layout: '/auth',
       },
@@ -161,7 +169,7 @@ var dashRoutes = [
         path: '/signup-wholesale',
         name: 'Sign Up',
         rtlName: 'لوحة القيادة',
-        icon: <RocketIcon color='inherit' />,
+        icon: <RocketIcon color="inherit" />,
         secondaryNavbar: true,
         component: SignUp,
         layout: '/auth',
@@ -170,7 +178,7 @@ var dashRoutes = [
         path: '/signup-producer',
         name: 'Sign Up',
         rtlName: 'لوحة القيادة',
-        icon: <RocketIcon color='inherit' />,
+        icon: <RocketIcon color="inherit" />,
         secondaryNavbar: true,
         component: SignUpProducer,
         layout: '/auth',

@@ -7,10 +7,17 @@ import {
   Marker,
 } from 'react-google-maps';
 
+import {useHistory} from 'react-router-dom';
+
 const Map = (props) => {
+  const history = useHistory();
   return (
     <>
-      <ActualMap isMarkerShown={props.isMarkerShown} {...props}></ActualMap>
+      <ActualMap
+        isMarkerShown={props.isMarkerShown}
+        history={history}
+        {...props}
+      ></ActualMap>
     </>
   );
 };
@@ -20,7 +27,14 @@ const ActualMap = compose(
     googleMapURL:
       'https://maps.googleapis.com/maps/api/js?key=AIzaSyAaTB74UBsFLP-FWRQ3yaXKwOgs2TDYNfI&v=3.exp&libraries=geometry,drawing,places',
     loadingElement: <div style={{height: `100%`}} />,
-    containerElement: <div style={{height: `560px`, width: `100%`}} />,
+    containerElement: (
+      <div
+        style={{
+          height: `660px`,
+          width: `100%`,
+        }}
+      />
+    ),
     mapElement: <div style={{height: `100%`}} />,
   }),
   lifecycle({
@@ -51,7 +65,7 @@ const ActualMap = compose(
   withGoogleMap,
 )((props) => (
   <GoogleMap defaultZoom={7} defaultCenter={{lat: 45.944, lng: 25.009}}>
-    {props.isMarkerShown && (
+    {props.isMarkerShown && !props.isProducerMap && (
       <Marker
         draggable={true}
         ref={props.onMarkerMounted}
@@ -59,6 +73,27 @@ const ActualMap = compose(
         position={props.markerLocation}
       />
     )}
+    {props.isProducerMap &&
+      props.localFarmers &&
+      props.localFarmers.map((farmer) => {
+        console.log(farmer);
+        return (
+          <Marker
+            draggable={false}
+            key={farmer.id}
+            position={{
+              lat: farmer.locations[0].latitude,
+              lng: farmer.locations[0].longitude,
+            }}
+            onClick={() => {
+              props.history.push(`/wholesale/producer/${farmer.id}`);
+            }}
+            onMouseOver={() => {
+              console.log('mouse over');
+            }}
+          ></Marker>
+        );
+      })}
   </GoogleMap>
 ));
 
