@@ -79,10 +79,11 @@ export default function AuthNavbar(props) {
       alignItems='center'
       color={mainText}
     >
-      <CreativeTimLogo w='32px' h='32px' me='10px' />
+      {/* <CreativeTimLogo w='32px' h='32px' me='10px' />
       <Text fontSize='sm' mt='3px'>
         {logoText}
-      </Text>
+      </Text> */}
+      <img src="https://storage.googleapis.com/farmtofork/Black%20Primary.png" style={{ width: "35%" }}></img>
     </Link>
   );
   var linksAuth = (
@@ -170,7 +171,7 @@ export default function AuthNavbar(props) {
           />
         </Box>
         {linksAuth}
-        <Link href='/discover'>
+        {/* <Link href='/discover'>
           <Button
             bg={bgButton}
             color={colorButton}
@@ -185,7 +186,7 @@ export default function AuthNavbar(props) {
           >
             Discover
           </Button>
-        </Link>
+        </Link> */}
       </Flex>
     </Flex>
   );

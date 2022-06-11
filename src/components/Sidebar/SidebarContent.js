@@ -189,10 +189,11 @@ const SidebarContent = ({ logoText, routes }) => {
           alignItems='center'
           fontSize='11px'
         >
-          <CreativeTimLogo w='32px' h='32px' me='10px' />
-          <Text fontSize='sm' mt='3px'>
+          {/*  <CreativeTimLogo w='32px' h='32px' me='10px' /> */}
+          {/*  <Text fontSize='sm' mt='3px'>
             {logoText}
-          </Text>
+          </Text> */}
+          <img src="https://storage.googleapis.com/farmtofork/Black%20Primary.png" style={{ width: "80%" }}></img>
         </Link>
         <Separator></Separator>
       </Box>
