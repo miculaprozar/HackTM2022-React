@@ -1,5 +1,5 @@
 // Chakra imports
-import { Flex, Grid, useColorModeValue } from "@chakra-ui/react";
+import { Flex, Grid, useColorModeValue, useDisclosure } from "@chakra-ui/react";
 import avatar4 from "assets/img/avatars/avatar4.png";
 import ProfileBgImage from "assets/img/ProfileBackground.png";
 import React, { useEffect, useState } from "react";
@@ -9,6 +9,8 @@ import Conversations from "./components/Conversations";
 import Header from "./components/Header";
 import PlatformSettings from "./components/PlatformSettings";
 import ProfileInformation from "./components/ProfileInformation";
+import AddProductModal from "./components/AddProductModal";
+
 import Projects from "./components/Projects";
 import EditProfileForm from "./components/EditProfileForm";
 import { apiFactory } from "../../../api_factory/index.ts";
@@ -23,6 +25,7 @@ function Profile() {
 
   const [userInformation, setUserInformation] = useState(null);
   const [refetchUserInformation, setRefetchUserInformation] = useState(false);
+  const [openAddProductModal, setOpenAddProductModal] = useState(false);
 
   const getUserInformation = async () => {
     const user = await apiFactory().data.account().getCurrentUser();
@@ -30,12 +33,11 @@ function Profile() {
     setUserInformation(user[0]);
   };
 
+  const onClose = () => setOpenAddProductModal((prevCheck) => !prevCheck);
+
   useEffect(() => {
     getUserInformation();
   }, [refetchUserInformation]);
-  useEffect(() => {
-    console.log("ASDASDASDAS", userInformation);
-  }, [userInformation]);
 
   return (
     <Flex direction="column">
@@ -43,8 +45,8 @@ function Profile() {
         backgroundHeader={ProfileBgImage}
         backgroundProfile={bgProfile}
         avatarImage={avatar4}
-        name={"Esthera Jackson"}
-        email={"esthera@simmmple.com"}
+        name={userInformation?.firstName + " " + userInformation?.lastName}
+        email={userInformation?.email}
         tabs={[
           {
             name: "OVERVIEW",
@@ -62,30 +64,20 @@ function Profile() {
       />
       <Grid templateColumns={{ sm: "1fr", xl: "repeat(2, 1fr)" }} gap="22px">
         {userInformation && (
-          <ProfileInformation
-            userInformation={userInformation}
-          // title={"Profile Information"}
-          // description={
-          //   "Hi, I’m Esthera Jackson, Decisions: If you can’t decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality)."
-          // }
-          // name={"Esthera Jackson"}
-          // mobile={"(44) 123 1234 123"}
-          // email={"esthera@simmmple.com"}
-          // location={"United States"}
-          />
+          <ProfileInformation userInformation={userInformation} />
         )}
-        {/* <PlatformSettings
-          title={"Platform Settings"}
-          subtitle1={"ACCOUNT"}
-          subtitle2={"APPLICATION"}
-        /> */}
+
         <EditProfileForm
           setRefetchUserInformation={setRefetchUserInformation}
         />
-
-        {/* <Conversations title={'Conversations'} />  */}
       </Grid>
-      <Projects title={"Projects"} description={"Architects design houses"} />
+      <Projects
+        title={"Projects"}
+        description={"Architects design houses"}
+        setOpenAddProductModal={setOpenAddProductModal}
+        reloadProducts={openAddProductModal}
+      />
+      <AddProductModal isOpen={openAddProductModal} onClose={onClose} />
     </Flex>
   );
 }
