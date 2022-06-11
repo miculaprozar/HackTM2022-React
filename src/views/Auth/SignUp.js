@@ -12,6 +12,7 @@ import {
   Switch,
   Text,
   useColorModeValue,
+  FormErrorMessage,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -27,26 +28,41 @@ function SignUp() {
   const bgColor = useColorModeValue("white", "gray.700");
   const bgIcons = useColorModeValue("teal.200", "rgba(255, 255, 255, 0.5)");
 
-  const schema = yup
-    .object({
-      firstName: yup.string().required("First name is a required field"),
-      lastName: yup.string().required("Last name is a required field"),
-      email: yup
-        .string()
-        .required("Email is a required field")
-        .email("Email is invalid"),
-      password: yup.number().positive().integer().required(),
-    })
-    .required();
+  const validationSchema = yup.object({
+    firstName: yup.string().required("First name is a required field"),
+    lastName: yup.string().required("Last name is a required field"),
+    companyName: yup.string().required("Company name is a required field"),
+    companyVAT: yup.string().required("Company VAT is a required field"),
+    companyRegNumber: yup
+      .string()
+      .required("Register number is a required field"),
+    companyIBAN: yup.string().required(" Iban is a required field"),
+
+    details: yup.string().required("Details is a required field"),
+
+    email: yup
+      .string()
+      .required("Email is a required field")
+      .email("Email is invalid"),
+    password: yup
+      .string()
+      .required("Password is a required field")
+      .min(6, "Minim 6 characters"),
+    seccondPassword: yup
+      .string()
+      .oneOf([yup.ref("password")], "The two passwords doesn't match"),
+  });
 
   const {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
-  } = useForm();
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+  });
 
   function onSubmit(values) {
-    console.log("the submit values:", values);
+    console.log("the submit valuessssssssssss:", values);
 
     // return new Promise((resolve) => {
     //   setTimeout(() => {
@@ -194,28 +210,32 @@ function SignUp() {
             or
           </Text>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <FormControl>
+            <FormControl isInvalid={errors.firstName}>
               <FormLabel
                 ms="4px"
                 fontSize="sm"
                 fontWeight="normal"
-                htmlFor="name"
+                htmlFor="firstName"
               >
-                Name
+                First Name
               </FormLabel>
               <Input
                 fontSize="sm"
                 ms="4px"
                 borderRadius="15px"
                 type="text"
-                placeholder="Your full name"
-                mb="24px"
+                placeholder="Your first name"
+                mb={`${!errors.firstName ? "24px" : "0px"}`}
                 size="lg"
-                id="name"
-                {...register("name")}
+                id="firstName"
+                {...register("firstName")}
               />
+              <FormErrorMessage mb="24px">
+                {errors.firstName?.message}
+              </FormErrorMessage>
             </FormControl>
-            {/* <FormLabel
+            <FormControl isInvalid={errors.email}>
+              <FormLabel
                 ms="4px"
                 fontSize="sm"
                 fontWeight="normal"
@@ -227,13 +247,18 @@ function SignUp() {
                 fontSize="sm"
                 ms="4px"
                 borderRadius="15px"
-                type="email"
                 placeholder="Your email address"
-                mb="24px"
+                mb={`${!errors.email ? "24px" : "0px"}`}
                 size="lg"
                 id="email"
                 {...register("email")}
               />
+              <FormErrorMessage mb="24px">
+                {errors.email?.message}
+              </FormErrorMessage>
+            </FormControl>
+
+            <FormControl isInvalid={errors.password}>
               <FormLabel
                 ms="4px"
                 fontSize="sm"
@@ -248,11 +273,186 @@ function SignUp() {
                 borderRadius="15px"
                 type="password"
                 placeholder="Your password"
-                mb="24px"
+                mb={`${!errors.password ? "24px" : "0px"}`}
                 size="lg"
                 id="password"
                 {...register("password")}
-              />*/}
+              />
+              <FormErrorMessage mb="24px">
+                {errors.password?.message}
+              </FormErrorMessage>
+            </FormControl>
+
+            <FormControl isInvalid={errors.seccondPassword}>
+              <FormLabel
+                ms="4px"
+                fontSize="sm"
+                fontWeight="normal"
+                htmlFor="seccondPassword"
+              >
+                Confirm password
+              </FormLabel>
+              <Input
+                fontSize="sm"
+                ms="4px"
+                borderRadius="15px"
+                type="password"
+                placeholder="Your seccond password"
+                mb={`${!errors.seccondPassword ? "24px" : "0px"}`}
+                size="lg"
+                id="seccondPassword"
+                {...register("seccondPassword")}
+              />
+              <FormErrorMessage mb="24px">
+                {errors.seccondPassword?.message}
+              </FormErrorMessage>
+            </FormControl>
+
+            <FormControl isInvalid={errors.lastName}>
+              <FormLabel
+                ms="4px"
+                fontSize="sm"
+                fontWeight="normal"
+                htmlFor="lastName"
+              >
+                Last name
+              </FormLabel>
+              <Input
+                fontSize="sm"
+                ms="4px"
+                borderRadius="15px"
+                type="lastName"
+                placeholder="Your lastName"
+                mb={`${!errors.lastName ? "24px" : "0px"}`}
+                size="lg"
+                id="lastName"
+                {...register("lastName")}
+              />
+              <FormErrorMessage mb="24px">
+                {errors.lastName?.message}
+              </FormErrorMessage>
+            </FormControl>
+
+            <FormControl isInvalid={errors.companyName}>
+              <FormLabel
+                ms="4px"
+                fontSize="sm"
+                fontWeight="normal"
+                htmlFor="companyName"
+              >
+                Company Name
+              </FormLabel>
+              <Input
+                fontSize="sm"
+                ms="4px"
+                borderRadius="15px"
+                placeholder="Your companyName"
+                mb={`${!errors.companyName ? "24px" : "0px"}`}
+                size="lg"
+                id="companyName"
+                {...register("companyName")}
+              />
+              <FormErrorMessage mb="24px">
+                {errors.companyName?.message}
+              </FormErrorMessage>
+            </FormControl>
+
+            <FormControl isInvalid={errors.companyVAT}>
+              <FormLabel
+                ms="4px"
+                fontSize="sm"
+                fontWeight="normal"
+                htmlFor="companyVAT"
+              >
+                Company Vat
+              </FormLabel>
+              <Input
+                fontSize="sm"
+                ms="4px"
+                borderRadius="15px"
+                placeholder="Your companyVAT"
+                mb={`${!errors.companyVAT ? "24px" : "0px"}`}
+                size="lg"
+                id="companyVAT"
+                {...register("companyVAT")}
+              />
+              <FormErrorMessage mb="24px">
+                {errors.companyVAT?.message}
+              </FormErrorMessage>
+            </FormControl>
+
+            <FormControl isInvalid={errors.companyRegNumber}>
+              <FormLabel
+                ms="4px"
+                fontSize="sm"
+                fontWeight="normal"
+                htmlFor="companyRegNumber"
+              >
+                Register Number
+              </FormLabel>
+              <Input
+                fontSize="sm"
+                ms="4px"
+                borderRadius="15px"
+                placeholder="Your Register Number"
+                mb={`${!errors.companyRegNumber ? "24px" : "0px"}`}
+                size="lg"
+                id="companyRegNumber"
+                {...register("companyRegNumber")}
+              />
+              <FormErrorMessage mb="24px">
+                {errors.companyRegNumber?.message}
+              </FormErrorMessage>
+            </FormControl>
+
+            <FormControl isInvalid={errors.companyIBAN}>
+              <FormLabel
+                ms="4px"
+                fontSize="sm"
+                fontWeight="normal"
+                htmlFor="companyIBAN"
+              >
+                Company IBAN
+              </FormLabel>
+              <Input
+                fontSize="sm"
+                ms="4px"
+                borderRadius="15px"
+                placeholder="Your company IBAN"
+                mb={`${!errors.companyIBAN ? "24px" : "0px"}`}
+                size="lg"
+                id="companyIBAN"
+                {...register("companyIBAN")}
+              />
+              <FormErrorMessage mb="24px">
+                {errors.companyIBAN?.message}
+              </FormErrorMessage>
+            </FormControl>
+
+            <FormControl isInvalid={errors.details}>
+              <FormLabel
+                ms="4px"
+                fontSize="sm"
+                fontWeight="normal"
+                htmlFor="details"
+              >
+                Details
+              </FormLabel>
+              <Input
+                fontSize="sm"
+                ms="4px"
+                borderRadius="15px"
+                placeholder="Your details"
+                mb={`${!errors.password ? "24px" : "0px"}`}
+                size="lg"
+                id="details"
+                {...register("details")}
+              />
+              <FormErrorMessage mb="24px">
+                {errors.details?.message}
+              </FormErrorMessage>
+            </FormControl>
+
             <FormControl display="flex" alignItems="center" mb="24px">
               <Switch id="remember-login" colorScheme="teal" me="10px" />
               <FormLabel htmlFor="remember-login" mb="0" fontWeight="normal">
