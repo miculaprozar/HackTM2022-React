@@ -8,13 +8,9 @@ import {
 } from 'react-google-maps';
 
 const Map = (props) => {
-  useEffect(() => {
-    localStorage.removeItem('locationToAdd');
-  }, []);
-
   return (
     <>
-      <ActualMap isMarkerShown={props.isMarkerShown}></ActualMap>
+      <ActualMap isMarkerShown={props.isMarkerShown} {...props}></ActualMap>
     </>
   );
 };
@@ -38,8 +34,23 @@ const ActualMap = compose(
         },
 
         onPositionChanged: () => {
-          const position = refs.marker.getPosition();
-          localStorage.setItem('locationToAdd', position);
+          let position = refs.marker.getPosition().toString();
+          //remove first and last char from position
+          position = position.substring(1, position.length - 1);
+
+          const coords = position.split(',');
+          this.props.handleSetPosition({
+            latitude: coords[0],
+            longitude: coords[1].substring(1, position.length),
+          });
+
+          localStorage.setItem(
+            'locationToAdd',
+            JSON.stringify({
+              latitude: coords[0],
+              longitude: coords[1].substring(1, position.length),
+            }),
+          );
         },
       });
     },

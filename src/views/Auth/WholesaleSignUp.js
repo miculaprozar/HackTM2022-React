@@ -19,11 +19,12 @@ import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 // Assets
 import BgSignUp from 'assets/img/BgSignUp.png';
-import React from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import {FaApple, FaFacebook, FaGoogle} from 'react-icons/fa';
 import {apiFactory} from '../../api_factory/index.ts';
 import {useHistory} from 'react-router-dom';
 import Map from 'components/Map/map';
+import _ from 'lodash';
 
 function SignUp() {
   const titleColor = useColorModeValue('teal.300', 'teal.200');
@@ -32,6 +33,9 @@ function SignUp() {
   const bgIcons = useColorModeValue('teal.200', 'rgba(255, 255, 255, 0.5)');
 
   const history = useHistory();
+  useEffect(() => {
+    localStorage.setItem('locationToAdd', null);
+  }, []);
 
   const validationSchema = yup.object({
     firstName: yup.string().required('First name is a required field'),
@@ -58,6 +62,10 @@ function SignUp() {
       .oneOf([yup.ref('password')], "The two passwords doesn't match"),
   });
 
+  const handleSetPosition = _.debounce(function (position) {
+    console.log(position);
+  }, 500);
+
   const {
     handleSubmit,
     register,
@@ -80,13 +88,15 @@ function SignUp() {
       localStorage.getItem('token') &&
       localStorage.getItem('locationToAdd')
     ) {
-      const locationBody = {
-        longitude: localStorage.getItem('locationToAdd').longitude,
-        latitude: localStorage.getItem('locationToAdd').latitude,
+      //json to object
+      const locationToAdd = {
+        ...JSON.parse(localStorage.getItem('locationToAdd')),
+        details: values.address,
       };
+      console.log(locationToAdd);
       const addLocationResponse = await apiFactory()
         .data.account()
-        .insertLocations(locationBody);
+        .insertLocations(locationToAdd);
       console.log(addLocationResponse);
     }
 
@@ -421,8 +431,25 @@ function SignUp() {
                   {errors.details?.message}
                 </FormErrorMessage>
               </FormControl>
-
-              <Map isMarkerShown />
+              <FormLabel
+                ms="4px"
+                fontSize="sm"
+                fontWeight="normal"
+                htmlFor="Address"
+              >
+                Address
+              </FormLabel>
+              <Input
+                fontSize="sm"
+                ms="4px"
+                borderRadius="15px"
+                placeholder="Address"
+                mb={`24px`}
+                size="lg"
+                id="address"
+                {...register('address')}
+              />
+              <Map isMarkerShown handleSetPosition={handleSetPosition} />
 
               <Button
                 type="submit"
