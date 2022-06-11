@@ -1,5 +1,5 @@
 // Chakra imports
-import { Flex, Grid, Image, Text } from '@chakra-ui/react';
+import { Flex, Grid, Image, Text, Button } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { apiFactory } from '../../../api_factory/index.ts';
 import ProducerCard from '../LocalFarmers/components/ProducerCard';
@@ -32,6 +32,20 @@ function ProducerDetails() {
   const handleAddProduct = (product) => {
     const newProductList = [...buyProducts, product];
     setBuyProducts(newProductList);
+  };
+
+  const handleCreateOrder = async () => {
+    const userData = localStorage.getItem('userData');
+    const user = JSON.parse(userData);
+    const order = {
+      customerId: user.id,
+      sellerId: producer.id,
+      products: buyProducts,
+      locationId: 1,
+    };
+    console.log(order);
+    const producerAPI = await apiFactory().data.account().postOrder(order);
+    setBuyProducts([]);
   };
 
   return (
@@ -82,7 +96,7 @@ function ProducerDetails() {
                   return (
                     <ProductDetailCard
                       product={product}
-                      image='https://picsum.photos/200'
+                      image='https://picsum.photos/400/200'
                       handleAddProduct={handleAddProduct}
                     />
                   );
@@ -91,24 +105,24 @@ function ProducerDetails() {
             </CardBody>
           </Card>
 
-          {buyProducts && (
-            <Card p='16px' my='24px'>
-              <CardHeader p='12px 5px' mb='12px'>
-                <Flex direction='column'>
-                  <Text fontSize='lg' color={'gray.700'} fontWeight='bold'>
-                    Comanda produse
-                  </Text>
-                  <Text fontSize='sm' color='gray.500' fontWeight='400'>
-                    Lista comanda produse
-                  </Text>
-                </Flex>
-              </CardHeader>
-              <CardBody>
+          <Card p='16px' my='24px'>
+            <CardHeader p='12px 5px' mb='12px'>
+              <Flex direction='column'>
+                <Text fontSize='lg' color={'gray.700'} fontWeight='bold'>
+                  Comanda produse
+                </Text>
+                <Text fontSize='sm' color='gray.500' fontWeight='400'>
+                  Lista comanda produse
+                </Text>
+              </Flex>
+            </CardHeader>
+            <CardBody>
+              {buyProducts.length > 0 ? (
                 <Grid
                   templateColumns={{
                     sm: '1fr',
                     md: '1fr 1fr',
-                    xl: 'repeat(4, 1fr)',
+                    xl: 'repeat(8, 1fr)',
                   }}
                   templateRows={{
                     sm: '1fr 1fr 1fr auto',
@@ -118,18 +132,31 @@ function ProducerDetails() {
                   gap='24px'
                 >
                   {buyProducts.map((product) => {
-                    return (
-                      <ProductSummary
-                        product={product}
-                        image='https://picsum.photos/200'
-                        handleAddProduct={handleAddProduct}
-                      />
-                    );
+                    return <ProductSummary product={product} />;
                   })}
                 </Grid>
-              </CardBody>
-            </Card>
-          )}
+              ) : (
+                <>
+                  <Text fontSize='lg' color='gray.500' fontWeight='400'>
+                    Comanda din nou!
+                  </Text>
+                </>
+              )}
+            </CardBody>
+            <Flex justifyContent='end'>
+              <Button
+                //   variant='outline'
+                colorScheme='teal'
+                minW='110px'
+                h='36px'
+                fontSize='xs'
+                px='1.5rem'
+                onClick={handleCreateOrder}
+              >
+                Comanda acum!
+              </Button>
+            </Flex>
+          </Card>
         </>
       )}
     </Flex>
