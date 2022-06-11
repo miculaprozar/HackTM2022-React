@@ -23,12 +23,20 @@ export default function Dashboard(props) {
   useEffect(() => {
     console.log('useEffect');
     const userData = localStorage.getItem('userData');
+    var currentLocation = window.location;
+    console.log(currentLocation);
 
     if (userData) {
       const user = JSON.parse(userData);
-      if (user.roleId === 1) {
+      if (
+        user.roleId === 1 &&
+        !currentLocation.pathname.includes('/wholesale')
+      ) {
         history.push('/wholesale/profile');
-      } else if (user.roleId === 2) {
+      } else if (
+        user.roleId === 2 &&
+        !currentLocation.pathname.includes('/producer')
+      ) {
         history.push('/producer/profile');
       }
     } else {
