@@ -43,14 +43,6 @@ const ActualMap = compose(
             latitude: coords[0],
             longitude: coords[1].substring(1, position.length),
           });
-
-          localStorage.setItem(
-            'locationToAdd',
-            JSON.stringify({
-              latitude: coords[0],
-              longitude: coords[1].substring(1, position.length),
-            }),
-          );
         },
       });
     },
@@ -64,7 +56,7 @@ const ActualMap = compose(
         draggable={true}
         ref={props.onMarkerMounted}
         onPositionChanged={props.onPositionChanged}
-        position={{lat: 45.944, lng: 25.009}}
+        position={props.markerLocation}
       />
     )}
   </GoogleMap>

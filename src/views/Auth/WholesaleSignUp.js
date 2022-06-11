@@ -25,6 +25,10 @@ import {apiFactory} from '../../api_factory/index.ts';
 import {useHistory} from 'react-router-dom';
 import Map from 'components/Map/map';
 import _ from 'lodash';
+import Geocode from 'react-geocode';
+
+Geocode.setApiKey('AIzaSyAaTB74UBsFLP-FWRQ3yaXKwOgs2TDYNfI');
+Geocode.setLanguage('en');
 
 function SignUp() {
   const titleColor = useColorModeValue('teal.300', 'teal.200');
@@ -33,9 +37,6 @@ function SignUp() {
   const bgIcons = useColorModeValue('teal.200', 'rgba(255, 255, 255, 0.5)');
 
   const history = useHistory();
-  useEffect(() => {
-    localStorage.setItem('locationToAdd', null);
-  }, []);
 
   const validationSchema = yup.object({
     firstName: yup.string().required('First name is a required field'),
@@ -62,8 +63,27 @@ function SignUp() {
       .oneOf([yup.ref('password')], "The two passwords doesn't match"),
   });
 
+  const [markerLocation, setMarkerLocation] = useState({
+    lat: 45.944,
+    lng: 25.009,
+  });
+
   const handleSetPosition = _.debounce(function (position) {
-    console.log(position);
+    Geocode.fromLatLng(position.latitude, position.longitude).then(
+      (response) => {
+        const address = response.results[1].formatted_address;
+        console.log(response.results);
+
+        setCurrentAdress(address);
+        setMarkerLocation({
+          lat: Number(position.latitude),
+          lng: Number(position.longitude),
+        });
+      },
+      (error) => {
+        console.error(error);
+      },
+    );
   }, 500);
 
   const {
@@ -107,6 +127,8 @@ function SignUp() {
     console.log('the submit valuessssssssssss:', values);
     setUser(values);
   }
+
+  const [currentAdress, setCurrentAdress] = useState('');
 
   return (
     <Flex
@@ -447,9 +469,13 @@ function SignUp() {
                 mb={`24px`}
                 size="lg"
                 id="address"
-                {...register('address')}
+                value={currentAdress}
               />
-              <Map isMarkerShown handleSetPosition={handleSetPosition} />
+              <Map
+                isMarkerShown
+                handleSetPosition={handleSetPosition}
+                markerLocation={markerLocation}
+              />
 
               <Button
                 type="submit"
