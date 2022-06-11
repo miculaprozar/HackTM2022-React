@@ -1,8 +1,8 @@
 {
-  "name": "purity-dashboard-react",
+  "name": "farm-to-fork",
   "version": "2.0.2",
   "private": true,
-  "homepage": "https://demos.creative-tim.com/purity-ui-dashboard/#/",
+  "homepage": "",
   "dependencies": {
     "@chakra-ui/icons": "^1.1.5",
     "@chakra-ui/react": "1.8.8",
@@ -16,6 +16,7 @@
     "@fontsource/roboto": "^4.5.0",
     "@hookform/resolvers": "^2.9.1",
     "apexcharts": "^3.27.3",
+    "axios": "^0.27.2",
     "classnames": "2.3.1",
     "framer-motion": "^4.1.17",
     "match-sorter": "6.3.0",
