@@ -7,41 +7,73 @@ import { sendDeleteRequest, sendImageRequest } from '../utils/network.ts';
 import { api_url } from '../utils/consts.ts';
 
 export default () => ({
-  checkedIfLogged: async (email) => {
-    const { data } = await sendGetRequest(
-      api_url + 'api/v1.0/platform/user/email/' + email
-    );
-    return data;
-  },
-  getUser: async () => {
-    const { data } = await sendGetRequest(api_url + 'api/v1.0/sc/user');
-    return data;
-  },
-  getSubscriptions: async () => {
-    const token = localStorage.getItem('token');
-    const { data } = await sendGetRequest(
-      api_url + 'api/v1.0/platform/demand/getUserSubscriptions',
-      token || ''
-    );
-    return data;
-  },
-  inviteUser: async (email) => {
-    const token = localStorage.getItem('token');
-
+  // USER
+  register: async (body) => {
     const { data } = await sendPostRequest(
-      api_url + 'api/v1.0/platform/user/affiliate',
-      { email: email },
+      api_url + '/api/v1.0/sc/user/signUp',
+      body
+    );
+    return data;
+  },
+  login: async (body) => {
+    const { data } = await sendPostRequest(
+      api_url + '/api/v1.0/sc/user/logIn',
+      body
+    );
+    return data;
+  },
+  getUsersByRole: async (roleID) => {
+    const token = localStorage.getItem('token');
+    const { data } = await sendGetRequest(
+      api_url + '/api/v1.0/sc/user/?roleId=' + roleID,
       token
     );
     return data;
   },
-  setUserInformation: async (token) => {
+  getCurrentUser: async () => {
+    const token = localStorage.getItem('token');
+    const { data } = await sendGetRequest(
+      api_url + '/api/v1.0/sc/user/me',
+      token
+    );
+    return data;
+  },
+
+  setUserInformation: async (userInfo) => {
+    const token = localStorage.getItem('token');
     const { data } = await sendPutRequest(
-      api_url + 'api/v1.0/platform/user',
+      api_url + '/api/v1.0/sc/user',
       userInfo,
       token
     );
-    //Throws an error
+    return data;
+  },
+
+  // LOCATIONS
+
+  getLocationByUser: async (userID) => {
+    const token = localStorage.getItem('token');
+    const { data } = await sendGetRequest(
+      api_url + '/api/v1.0/sc/location/?userId=' + userID,
+      token
+    );
+    return data;
+  },
+  updateLocationById: async (body, locationId) => {
+    const token = localStorage.getItem('token');
+    const { data } = await sendPutRequest(
+      api_url + '/api/v1.0/sc/location/' + locationId,
+      body,
+      token
+    );
+    return data;
+  },
+
+  insertLocations: async (body) => {
+    const { data } = await sendPostRequest(
+      api_url + '/api/v1.0/sc/location',
+      body
+    );
     return data;
   },
 });

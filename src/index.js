@@ -17,7 +17,7 @@ ReactDOM.render(
       <Route path={`/auth`} component={AuthLayout} />
       <Route path={`/wholesale`} component={Wholesale} />
       <Route path={`/producer`} component={Producer} />
-      <Redirect from={`/`} to='/admin/dashboard' />
+      <Redirect from={`/`} to='/auth//signin' />
     </Switch>
   </Router>,
   document.getElementById('root')
