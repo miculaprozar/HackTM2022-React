@@ -40,6 +40,8 @@ const Projects = ({
       .data.account()
       .getUserProducts(user[0].id);
 
+    console.log("THE USER PRODUCTS:", userProducts);
+
     setUserProducts(userProducts);
   };
 
