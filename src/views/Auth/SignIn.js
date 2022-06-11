@@ -162,17 +162,7 @@ function SignIn() {
                 <FormErrorMessage mb="36px">
                   {errors.password?.message}
                 </FormErrorMessage>
-                <FormControl display="flex" alignItems="center">
-                  <Switch id="remember-login" colorScheme="teal" me="10px" />
-                  <FormLabel
-                    htmlFor="remember-login"
-                    mb="0"
-                    ms="1"
-                    fontWeight="normal"
-                  >
-                    Remember me
-                  </FormLabel>
-                </FormControl>
+
                 <Button
                   fontSize="10px"
                   type="submit"
@@ -194,20 +184,6 @@ function SignIn() {
                 </Button>
               </FormControl>
             </form>
-            <Flex
-              flexDirection="column"
-              justifyContent="center"
-              alignItems="center"
-              maxW="100%"
-              mt="0px"
-            >
-              <Text color={textColor} fontWeight="medium">
-                Don't have an account?
-                <Link color={titleColor} as="span" ms="5px" fontWeight="bold">
-                  Sign Up
-                </Link>
-              </Text>
-            </Flex>
           </Flex>
         </Flex>
         <Box
