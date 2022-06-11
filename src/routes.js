@@ -19,6 +19,8 @@ import SignIn from 'views/Auth/SignIn.js';
 import SignUp from 'views/Auth/WholesaleSignUp.js';
 import SignUpProducer from 'views/Auth/SignUpProducer.js';
 
+import ProducerDetails from 'views/General/ProducerDetails';
+
 import {
   HomeIcon,
   StatsIcon,
@@ -35,6 +37,14 @@ var dashRoutes = [
     name: 'Local Farmers',
     icon: <HomeIcon color='inherit' />,
     component: LocalFarmers,
+    layout: '/wholesale',
+  },
+  {
+    path: '/producer/:producerId',
+    name: 'Local Farmers',
+    hidden: true,
+    icon: <HomeIcon color='inherit' />,
+    component: ProducerDetails,
     layout: '/wholesale',
   },
   // {

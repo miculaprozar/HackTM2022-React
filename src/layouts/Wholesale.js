@@ -70,6 +70,7 @@ export default function Dashboard(props) {
   };
   const getRoutes = (routes) => {
     console.log('IS THIS WORKING');
+
     return routes.map((prop, key) => {
       if (prop.collapse) {
         return getRoutes(prop.views);
@@ -94,7 +95,9 @@ export default function Dashboard(props) {
   const getWholesaleRoutes = (routes) => {
     return routes.filter((route) => {
       return (
-        route.layout === '/wholesale' || route.category === 'wholesale-account'
+        !route.hidden &&
+        (route.layout === '/wholesale' ||
+          route.category === 'wholesale-account')
       );
     });
   };
