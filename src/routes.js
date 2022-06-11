@@ -1,10 +1,10 @@
 // import
 
 // General Components
-import Dashboard from 'views/Dashboard/Dashboard';
+import LocalFarmers from 'views/General/LocalFarmers/index.js';
 
 // Wholesale Components
-import LocalFarmers from 'views/Wholesale/LocalFarmers';
+// import LocalFarmers from 'views/Wholesale/LocalFarmers';
 import WholesaleProfile from 'views/Wholesale/Profile';
 import Contracts from 'views/Wholesale/Contracts';
 import Comands from 'views/Wholesale/Comands';
@@ -14,10 +14,12 @@ import ProducerProfile from 'views/Wholesale/Profile';
 import ProducerContracts from 'views/Wholesale/Contracts';
 import ProducerComands from 'views/Wholesale/Comands';
 
-// import Billing from 'views/Dashboard/Billing';
+// AUTH ROUTES';
 import SignIn from 'views/Auth/SignIn.js';
 import SignUp from 'views/Auth/WholesaleSignUp.js';
 import SignUpProducer from 'views/Auth/SignUpProducer.js';
+
+import ProducerDetails from 'views/General/ProducerDetails';
 
 import {
   HomeIcon,
@@ -35,6 +37,14 @@ var dashRoutes = [
     name: 'Local Farmers',
     icon: <HomeIcon color='inherit' />,
     component: LocalFarmers,
+    layout: '/wholesale',
+  },
+  {
+    path: '/producer/:producerId',
+    name: 'Local Farmers',
+    hidden: true,
+    icon: <HomeIcon color='inherit' />,
+    component: ProducerDetails,
     layout: '/wholesale',
   },
   // {
