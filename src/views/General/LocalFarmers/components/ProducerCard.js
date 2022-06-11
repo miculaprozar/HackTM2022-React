@@ -15,7 +15,14 @@ import React from 'react';
 // react icons
 import { BsArrowRight } from 'react-icons/bs';
 
-const ProducerCard = ({ title, name, description, image, farmer }) => {
+const ProducerCard = ({
+  title,
+  name,
+  description,
+  image,
+  farmer,
+  contract,
+}) => {
   const textColor = useColorModeValue('gray.700', 'white');
 
   return (

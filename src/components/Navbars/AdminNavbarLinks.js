@@ -1,5 +1,5 @@
 // Chakra Icons
-import { BellIcon, SearchIcon } from "@chakra-ui/icons";
+import { BellIcon, SearchIcon } from '@chakra-ui/icons';
 // Chakra Imports
 import {
   Button,
@@ -14,42 +14,47 @@ import {
   MenuList,
   Text,
   useColorModeValue,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 // Assets
-import avatar1 from "assets/img/avatars/avatar1.png";
-import avatar2 from "assets/img/avatars/avatar2.png";
-import avatar3 from "assets/img/avatars/avatar3.png";
+import avatar1 from 'assets/img/avatars/avatar1.png';
+import avatar2 from 'assets/img/avatars/avatar2.png';
+import avatar3 from 'assets/img/avatars/avatar3.png';
 // Custom Icons
-import { ProfileIcon, SettingsIcon } from "components/Icons/Icons";
+import { ProfileIcon, SettingsIcon } from 'components/Icons/Icons';
 // Custom Components
-import { ItemContent } from "components/Menu/ItemContent";
-import SidebarResponsive from "components/Sidebar/SidebarResponsive";
-import PropTypes from "prop-types";
-import React from "react";
-import { NavLink } from "react-router-dom";
-import routes from "routes.js";
+import { ItemContent } from 'components/Menu/ItemContent';
+import SidebarResponsive from 'components/Sidebar/SidebarResponsive';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import routes from 'routes.js';
 
 export default function HeaderLinks(props) {
   const { variant, children, fixed, secondary, onOpen, ...rest } = props;
 
   // Chakra Color Mode
-  let mainTeal = useColorModeValue("teal.300", "teal.300");
-  let inputBg = useColorModeValue("white", "gray.800");
-  let mainText = useColorModeValue("gray.700", "gray.200");
-  let navbarIcon = useColorModeValue("gray.500", "gray.200");
-  let searchIcon = useColorModeValue("gray.700", "gray.200");
+  let mainTeal = useColorModeValue('teal.300', 'teal.300');
+  let inputBg = useColorModeValue('white', 'gray.800');
+  let mainText = useColorModeValue('gray.700', 'gray.200');
+  let navbarIcon = useColorModeValue('gray.500', 'gray.200');
+  let searchIcon = useColorModeValue('gray.700', 'gray.200');
+
+  const signOut = () => {
+    localStorage.removeItem('userData');
+    window.location.reload();
+  };
 
   if (secondary) {
-    navbarIcon = "white";
-    mainText = "white";
+    navbarIcon = 'white';
+    mainText = 'white';
   }
   const settingsRef = React.useRef();
   return (
     <Flex
-      pe={{ sm: "0px", md: "16px" }}
-      w={{ sm: "100%", md: "auto" }}
-      alignItems="center"
-      flexDirection="row"
+      pe={{ sm: '0px', md: '16px' }}
+      w={{ sm: '100%', md: 'auto' }}
+      alignItems='center'
+      flexDirection='row'
     >
       {/*   <InputGroup
         cursor="pointer"
@@ -94,27 +99,28 @@ export default function HeaderLinks(props) {
         />
       </InputGroup> */}
       <Button
-        ms="0px"
-        px="0px"
-        me={{ sm: "2px", md: "16px" }}
+        ms='0px'
+        px='0px'
+        me={{ sm: '2px', md: '16px' }}
         color={navbarIcon}
-        variant="transparent-with-icon"
+        variant='transparent-with-icon'
+        onClick={signOut}
         rightIcon={
           document.documentElement.dir ? (
-            ""
+            ''
           ) : (
-            <ProfileIcon color={navbarIcon} w="22px" h="22px" me="0px" />
+            <ProfileIcon color={navbarIcon} w='22px' h='22px' me='0px' />
           )
         }
         leftIcon={
           document.documentElement.dir ? (
-            <ProfileIcon color={navbarIcon} w="22px" h="22px" me="0px" />
+            <ProfileIcon color={navbarIcon} w='22px' h='22px' me='0px' />
           ) : (
-            ""
+            ''
           )
         }
       >
-        <Text display={{ sm: "none", md: "flex" }}>Sign Out</Text>
+        <Text display={{ sm: 'none', md: 'flex' }}>Sign Out</Text>
       </Button>
       <SidebarResponsive
         logoText={props.logoText}

@@ -1,5 +1,5 @@
 import React from 'react';
-import {apiFactory} from '../../api_factory/index.ts';
+import { apiFactory } from '../../api_factory/index.ts';
 // Chakra imports
 import {
   Box,
@@ -15,10 +15,10 @@ import {
   useColorModeValue,
   FormErrorMessage,
 } from '@chakra-ui/react';
-import {useForm} from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 // Assets
 import signInImage from 'assets/img/signInImage.png';
-import {useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 function SignIn() {
   // Chakra color mode
@@ -30,7 +30,7 @@ function SignIn() {
   const {
     handleSubmit,
     register,
-    formState: {errors, isSubmitting},
+    formState: { errors, isSubmitting },
   } = useForm();
 
   // const getUser = async () => {
@@ -50,7 +50,7 @@ function SignIn() {
           .data.account()
           .getCurrentUser();
         const userData = userDataArray[0];
-        console.log(userData);
+        localStorage.setItem('userData', JSON.stringify(userData));
         if (userData.roleId === 1) {
           history.push('/wholesale/profile');
         } else if (userData.roleId === 2) {
@@ -69,59 +69,59 @@ function SignIn() {
     tryLogin(values);
   }
   return (
-    <Flex position="relative" mb="40px">
+    <Flex position='relative' mb='40px'>
       <Flex
-        h={{sm: 'initial', md: '75vh', lg: '85vh'}}
-        w="100%"
-        maxW="1044px"
-        mx="auto"
-        justifyContent="space-between"
-        mb="30px"
-        pt={{sm: '100px', md: '0px'}}
+        h={{ sm: 'initial', md: '75vh', lg: '85vh' }}
+        w='100%'
+        maxW='1044px'
+        mx='auto'
+        justifyContent='space-between'
+        mb='30px'
+        pt={{ sm: '100px', md: '0px' }}
       >
         <Flex
-          alignItems="center"
-          justifyContent="start"
-          style={{userSelect: 'none'}}
-          w={{base: '100%', md: '50%', lg: '42%'}}
+          alignItems='center'
+          justifyContent='start'
+          style={{ userSelect: 'none' }}
+          w={{ base: '100%', md: '50%', lg: '42%' }}
         >
           <Flex
-            direction="column"
-            w="100%"
-            background="transparent"
-            p="48px"
-            mt={{md: '150px', lg: '80px'}}
+            direction='column'
+            w='100%'
+            background='transparent'
+            p='48px'
+            mt={{ md: '150px', lg: '80px' }}
           >
-            <Heading color={titleColor} fontSize="32px" mb="10px">
+            <Heading color={titleColor} fontSize='32px' mb='10px'>
               Welcome Back
             </Heading>
             <Text
-              mb="36px"
-              ms="4px"
+              mb='36px'
+              ms='4px'
               color={textColor}
-              fontWeight="bold"
-              fontSize="14px"
+              fontWeight='bold'
+              fontSize='14px'
             >
               Enter your email and password to sign in
             </Text>
             <form onSubmit={handleSubmit(onSubmit)}>
               <FormControl isInvalid={errors.email}>
                 <FormLabel
-                  ms="4px"
-                  fontSize="sm"
-                  fontWeight="normal"
-                  htmlFor="email"
+                  ms='4px'
+                  fontSize='sm'
+                  fontWeight='normal'
+                  htmlFor='email'
                 >
                   Email
                 </FormLabel>
                 <Input
                   mb={`${!errors.email ? '24px' : '0px'}`}
-                  borderRadius="15px"
-                  fontSize="sm"
-                  type="text"
-                  placeholder="Your email adress"
-                  size="lg"
-                  id="email"
+                  borderRadius='15px'
+                  fontSize='sm'
+                  type='text'
+                  placeholder='Your email adress'
+                  size='lg'
+                  id='email'
                   {...register('email', {
                     required: 'This is required',
                     minLength: {
@@ -130,27 +130,27 @@ function SignIn() {
                     },
                   })}
                 />
-                <FormErrorMessage mb="24px">
+                <FormErrorMessage mb='24px'>
                   {errors.email?.message}
                 </FormErrorMessage>
               </FormControl>
               <FormControl isInvalid={errors.password}>
                 <FormLabel
-                  ms="4px"
-                  fontSize="sm"
-                  fontWeight="normal"
-                  htmlFor="password"
+                  ms='4px'
+                  fontSize='sm'
+                  fontWeight='normal'
+                  htmlFor='password'
                 >
                   Password
                 </FormLabel>
                 <Input
-                  borderRadius="15px"
+                  borderRadius='15px'
                   mb={`${!errors.password ? '36px' : '0px'}`}
-                  fontSize="sm"
-                  type="password"
-                  placeholder="Your password"
-                  size="lg"
-                  id="password"
+                  fontSize='sm'
+                  type='password'
+                  placeholder='Your password'
+                  size='lg'
+                  id='password'
                   {...register('password', {
                     required: 'This is required',
                     minLength: {
@@ -159,19 +159,19 @@ function SignIn() {
                     },
                   })}
                 />
-                <FormErrorMessage mb="36px">
+                <FormErrorMessage mb='36px'>
                   {errors.password?.message}
                 </FormErrorMessage>
 
                 <Button
-                  fontSize="10px"
-                  type="submit"
-                  bg="teal.300"
-                  w="100%"
-                  h="45"
-                  mb="20px"
-                  color="white"
-                  mt="20px"
+                  fontSize='10px'
+                  type='submit'
+                  bg='teal.300'
+                  w='100%'
+                  h='45'
+                  mb='20px'
+                  color='white'
+                  mt='20px'
                   _hover={{
                     bg: 'teal.200',
                   }}
@@ -187,21 +187,21 @@ function SignIn() {
           </Flex>
         </Flex>
         <Box
-          display={{base: 'none', md: 'block'}}
-          overflowX="hidden"
-          h="100%"
-          w="40vw"
-          position="absolute"
-          right="0px"
+          display={{ base: 'none', md: 'block' }}
+          overflowX='hidden'
+          h='100%'
+          w='40vw'
+          position='absolute'
+          right='0px'
         >
           <Box
             bgImage={signInImage}
-            w="100%"
-            h="100%"
-            bgSize="cover"
-            bgPosition="50%"
-            position="absolute"
-            borderBottomLeftRadius="20px"
+            w='100%'
+            h='100%'
+            bgSize='cover'
+            bgPosition='50%'
+            position='absolute'
+            borderBottomLeftRadius='20px'
           ></Box>
         </Box>
       </Flex>

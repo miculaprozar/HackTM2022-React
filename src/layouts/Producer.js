@@ -5,8 +5,8 @@ import Footer from 'components/Footer/Footer.js';
 // Layout components
 import AdminNavbar from 'components/Navbars/AdminNavbar.js';
 import Sidebar from 'components/Sidebar';
-import React, { useState } from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
 import routes from 'routes.js';
 // Custom Chakra theme
 import theme from 'theme/theme.js';
@@ -17,6 +17,24 @@ import PanelContainer from '../components/Layout/PanelContainer';
 import PanelContent from '../components/Layout/PanelContent';
 export default function Dashboard(props) {
   const { ...rest } = props;
+
+  const history = useHistory();
+
+  useEffect(() => {
+    console.log('useEffect');
+    const userData = localStorage.getItem('userData');
+
+    if (userData) {
+      const user = JSON.parse(userData);
+      if (user.roleId === 1) {
+        history.push('/wholesale/profile');
+      } else if (user.roleId === 2) {
+        history.push('/producer/profile');
+      }
+    } else {
+      history.push('/auth/signin');
+    }
+  }, []);
   // states and functions
   const [sidebarVariant, setSidebarVariant] = useState('transparent');
   const [fixed, setFixed] = useState(false);
