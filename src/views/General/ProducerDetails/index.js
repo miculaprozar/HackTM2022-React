@@ -1,5 +1,5 @@
 // Chakra imports
-import { Flex, Grid, Image, Text, Button } from '@chakra-ui/react';
+import { Flex, Grid, Image, Text, Button, Select } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { apiFactory } from '../../../api_factory/index.ts';
 import ProducerCard from '../LocalFarmers/components/ProducerCard';
@@ -16,13 +16,14 @@ function ProducerDetails() {
   const [producer, setProducer] = useState(null);
 
   const [buyProducts, setBuyProducts] = useState([]);
+  const [location, setLocation] = useState(null);
 
   const getLocalFarmers = async () => {
     const producerAPI = await apiFactory()
       .data.account()
       .getUsersById(producerId);
     setProducer(producerAPI[0]);
-    console.log(producerAPI[0].products);
+    console.log(producerAPI[0]);
   };
 
   useEffect(() => {
@@ -35,13 +36,15 @@ function ProducerDetails() {
   };
 
   const handleCreateOrder = async () => {
+    console.log(location);
+    if (!location) return null;
     const userData = localStorage.getItem('userData');
     const user = JSON.parse(userData);
     const order = {
       customerId: user.id,
       sellerId: producer.id,
       products: buyProducts,
-      locationId: 1,
+      locationId: location,
     };
     console.log(order);
     const producerAPI = await apiFactory().data.account().postOrder(order);
@@ -144,6 +147,21 @@ function ProducerDetails() {
               )}
             </CardBody>
             <Flex justifyContent='end'>
+              <Select
+                placeholder='Select option'
+                w={'90%'}
+                maxWidth='300px'
+                mr='30px'
+                onChange={(event) => {
+                  setLocation(event.target.value);
+                }}
+              >
+                {producer.locations.map((location) => {
+                  return (
+                    <option value={location.id}>{location.details}</option>
+                  );
+                })}
+              </Select>
               <Button
                 //   variant='outline'
                 colorScheme='teal'
@@ -152,6 +170,7 @@ function ProducerDetails() {
                 fontSize='xs'
                 px='1.5rem'
                 onClick={handleCreateOrder}
+                disabled={buyProducts.length === 0}
               >
                 Comanda acum!
               </Button>
