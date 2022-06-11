@@ -14,15 +14,15 @@ import {
   useColorModeValue,
   FormErrorMessage,
 } from '@chakra-ui/react';
-import {useForm} from 'react-hook-form';
-import {yupResolver} from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 // Assets
 import BgSignUp from 'assets/img/BgSignUp.png';
-import React, {useEffect, useState, useCallback} from 'react';
-import {FaApple, FaFacebook, FaGoogle} from 'react-icons/fa';
-import {apiFactory} from '../../api_factory/index.ts';
-import {useHistory} from 'react-router-dom';
+import React, { useEffect, useState, useCallback } from 'react';
+import { FaApple, FaFacebook, FaGoogle } from 'react-icons/fa';
+import { apiFactory } from '../../api_factory/index.ts';
+import { useHistory } from 'react-router-dom';
 import Map from 'components/Map/map';
 import _ from 'lodash';
 import Geocode from 'react-geocode';
@@ -72,8 +72,7 @@ function SignUp() {
     Geocode.fromLatLng(position.latitude, position.longitude).then(
       (response) => {
         const address = response.results[1].formatted_address;
-        console.log(response.results);
-
+        console.log(position)
         setCurrentAdress(address);
         setMarkerLocation({
           lat: Number(position.latitude),
@@ -89,7 +88,7 @@ function SignUp() {
   const {
     handleSubmit,
     register,
-    formState: {errors, isSubmitting},
+    formState: { errors, isSubmitting },
   } = useForm({
     resolver: yupResolver(validationSchema),
   });
@@ -97,12 +96,17 @@ function SignUp() {
   const setUser = async (values) => {
     const user = await apiFactory()
       .data.account()
-      .register({...values, roleId: 1});
+      .register({ ...values, roleId: 1 });
     const login = await apiFactory().data.account().login({
       email: values.email,
       password: values.password,
     });
     localStorage.setItem('token', login);
+    const userDataArray = await apiFactory()
+      .data.account()
+      .getCurrentUser();
+    const userData = userDataArray[0];
+    localStorage.setItem('userData', JSON.stringify(userData));
 
     if (
       localStorage.getItem('token') &&
@@ -110,7 +114,8 @@ function SignUp() {
     ) {
       //json to object
       const locationToAdd = {
-        ...JSON.parse(localStorage.getItem('locationToAdd')),
+        longitude: markerLocation.lng,
+        latitude: markerLocation.lat,
         details: values.address,
       };
       console.log(locationToAdd);
@@ -139,9 +144,9 @@ function SignUp() {
     >
       <Box
         position="absolute"
-        minH={{base: '70vh', md: '50vh'}}
-        w={{md: 'calc(100vw - 50px)'}}
-        borderRadius={{md: '15px'}}
+        minH={{ base: '70vh', md: '50vh' }}
+        w={{ md: 'calc(100vw - 50px)' }}
+        borderRadius={{ md: '15px' }}
         left="0"
         right="0"
         bgRepeat="no-repeat"
@@ -150,8 +155,8 @@ function SignUp() {
         top="0"
         bgImage={BgSignUp}
         bgSize="cover"
-        mx={{md: 'auto'}}
-        mt={{md: '14px'}}
+        mx={{ md: 'auto' }}
+        mt={{ md: '14px' }}
       ></Box>
       <Flex
         direction="column"
@@ -170,7 +175,7 @@ function SignUp() {
           fontWeight="normal"
           mt="10px"
           mb="26px"
-          w={{base: '90%', sm: '60%', lg: '40%', xl: '30%'}}
+          w={{ base: '90%', sm: '60%', lg: '40%', xl: '30%' }}
         >
           Sign up to start your business as a wholesale distributor.
         </Text>
@@ -182,7 +187,7 @@ function SignUp() {
           background="transparent"
           borderRadius="15px"
           p="40px"
-          mx={{base: '100px'}}
+          mx={{ base: '100px' }}
           bg={bgColor}
           boxShadow="0 20px 27px 0 rgb(0 0 0 / 5%)"
         >

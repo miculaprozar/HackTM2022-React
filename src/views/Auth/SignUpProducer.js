@@ -19,10 +19,16 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 // Assets
 import BgSignUp from 'assets/img/BgSignUp.png';
-import React from 'react';
+import React, { useState } from 'react';
+import Map from 'components/Map/map';
 import { FaApple, FaFacebook, FaGoogle } from 'react-icons/fa';
 import { apiFactory } from '../../api_factory/index.ts';
 import { useHistory } from 'react-router-dom';
+import _ from 'lodash';
+import Geocode from 'react-geocode';
+
+Geocode.setApiKey('AIzaSyAaTB74UBsFLP-FWRQ3yaXKwOgs2TDYNfI');
+Geocode.setLanguage('en');
 
 function SignUpProducer() {
   const titleColor = useColorModeValue('teal.300', 'teal.200');
@@ -57,6 +63,28 @@ function SignUpProducer() {
       .oneOf([yup.ref('password')], "The two passwords doesn't match"),
   });
 
+  const [markerLocation, setMarkerLocation] = useState({
+    lat: 45.944,
+    lng: 25.009,
+  });
+
+  const handleSetPosition = _.debounce(function (position) {
+    Geocode.fromLatLng(position.latitude, position.longitude).then(
+      (response) => {
+        const address = response.results[1].formatted_address;
+        console.log(position)
+        setCurrentAdress(address);
+        setMarkerLocation({
+          lat: Number(position.latitude),
+          lng: Number(position.longitude),
+        });
+      },
+      (error) => {
+        console.error(error);
+      },
+    );
+  }, 500);
+
   const {
     handleSubmit,
     register,
@@ -74,6 +102,29 @@ function SignUpProducer() {
       password: values.password,
     });
     localStorage.setItem('token', login);
+    const userDataArray = await apiFactory()
+      .data.account()
+      .getCurrentUser();
+    const userData = userDataArray[0];
+    localStorage.setItem('userData', JSON.stringify(userData));
+
+    if (
+      localStorage.getItem('token') &&
+      localStorage.getItem('locationToAdd')
+    ) {
+      //json to object
+      const locationToAdd = {
+        longitude: markerLocation.lng,
+        latitude: markerLocation.lat,
+        details: values.address,
+      };
+      console.log(locationToAdd);
+      const addLocationResponse = await apiFactory()
+        .data.account()
+        .insertLocations(locationToAdd);
+      console.log(addLocationResponse);
+    }
+
     user && history.push('/producer/profile');
   };
 
@@ -81,6 +132,8 @@ function SignUpProducer() {
     console.log('the submit valuessssssssssss:', values);
     setUser(values);
   }
+
+  const [currentAdress, setCurrentAdress] = useState('');
 
   return (
     <Flex
@@ -405,6 +458,21 @@ function SignUpProducer() {
                   {errors.details?.message}
                 </FormErrorMessage>
               </FormControl>
+              <Input
+                fontSize="sm"
+                ms="4px"
+                borderRadius="15px"
+                placeholder="Address"
+                mb={`24px`}
+                size="lg"
+                id="address"
+                value={currentAdress}
+              />
+              <Map
+                isMarkerShown
+                handleSetPosition={handleSetPosition}
+                markerLocation={markerLocation}
+              />
 
               <Button
                 type='submit'

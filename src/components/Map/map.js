@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {compose, withProps, lifecycle} from 'recompose';
+import React, { useState, useEffect } from 'react';
+import { compose, withProps, lifecycle } from 'recompose';
 import {
   withScriptjs,
   withGoogleMap,
@@ -19,9 +19,9 @@ const ActualMap = compose(
   withProps({
     googleMapURL:
       'https://maps.googleapis.com/maps/api/js?key=AIzaSyAaTB74UBsFLP-FWRQ3yaXKwOgs2TDYNfI&v=3.exp&libraries=geometry,drawing,places',
-    loadingElement: <div style={{height: `100%`}} />,
-    containerElement: <div style={{height: `560px`, width: `100%`}} />,
-    mapElement: <div style={{height: `100%`}} />,
+    loadingElement: <div style={{ height: `100%` }} />,
+    containerElement: <div style={{ height: `560px`, width: `100%` }} />,
+    mapElement: <div style={{ height: `100%` }} />,
   }),
   lifecycle({
     componentWillMount() {
@@ -37,8 +37,9 @@ const ActualMap = compose(
           let position = refs.marker.getPosition().toString();
           //remove first and last char from position
           position = position.substring(1, position.length - 1);
-
           const coords = position.split(',');
+          console.log(coords);
+
           this.props.handleSetPosition({
             latitude: coords[0],
             longitude: coords[1].substring(1, position.length),
@@ -50,7 +51,7 @@ const ActualMap = compose(
   withScriptjs,
   withGoogleMap,
 )((props) => (
-  <GoogleMap defaultZoom={7} defaultCenter={{lat: 45.944, lng: 25.009}}>
+  <GoogleMap defaultZoom={7} defaultCenter={{ lat: 45.944, lng: 25.009 }}>
     {props.isMarkerShown && (
       <Marker
         draggable={true}
