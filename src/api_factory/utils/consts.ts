@@ -1,1 +1,1 @@
-export const api_url = `https://hacktm-be.herokuapp.com/`;
+export const api_url = `https://hacktm-be.herokuapp.com`;
