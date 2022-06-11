@@ -1,5 +1,5 @@
 // Chakra imports
-import { Flex, Icon, Link, Text, useColorModeValue } from "@chakra-ui/react";
+import { Flex, Icon, Link, Text, useColorModeValue, Button } from "@chakra-ui/react";
 // Custom components
 import Card from "components/Card/Card";
 import CardBody from "components/Card/CardBody";
@@ -73,6 +73,23 @@ const ProfileInformation = ({
             <Text fontSize="md" color="gray.500" fontWeight="400">
               {companyVAT}
             </Text>
+          </Flex>
+          <Flex align="center" mb="18px">
+            <Text fontSize="md" color={textColor} fontWeight="bold" me="10px">
+              Location:{" "}
+            </Text>
+            <Button
+              bg="teal.300"
+              w="50%"
+              p="8px 32px"
+              mb={5}
+              _hover="teal.300"
+              color="white"
+              fontSize="xs"
+              onClick={{}}
+            >
+              See Location
+            </Button>
           </Flex>
           {/* <Flex align="center" mb="18px">
             <Text fontSize="md" color={textColor} fontWeight="bold" me="10px">
