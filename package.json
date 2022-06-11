@@ -19,6 +19,7 @@
     "axios": "^0.27.2",
     "classnames": "2.3.1",
     "framer-motion": "^4.1.17",
+    "lodash": "^4.17.21",
     "match-sorter": "6.3.0",
     "moment": "2.29.1",
     "node-sass": "7.0.1",
@@ -40,6 +41,7 @@
     "react-swipeable-views": "0.14.0",
     "react-table": "7.7.0",
     "react-tagsinput": "3.19.0",
+    "recompose": "^0.30.0",
     "stylis": "^4.0.13",
     "stylis-plugin-rtl": "^2.1.1",
     "yup": "^0.32.11"

@@ -76,6 +76,20 @@ function SignUp() {
     });
     localStorage.setItem('token', login);
 
+    if (
+      localStorage.getItem('token') &&
+      localStorage.getItem('locationToAdd')
+    ) {
+      const locationBody = {
+        longitude: localStorage.getItem('locationToAdd').longitude,
+        latitude: localStorage.getItem('locationToAdd').latitude,
+      };
+      const addLocationResponse = await apiFactory()
+        .data.account()
+        .insertLocations(locationBody);
+      console.log(addLocationResponse);
+    }
+
     user && history.push('/wholesale/profile');
   };
 
@@ -408,7 +422,7 @@ function SignUp() {
                 </FormErrorMessage>
               </FormControl>
 
-              {/* <Map isMarkerShown /> */}
+              <Map isMarkerShown />
 
               <Button
                 type="submit"
