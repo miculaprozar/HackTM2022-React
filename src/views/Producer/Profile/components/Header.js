@@ -26,7 +26,7 @@ const Header = ({
   const emailColor = useColorModeValue("gray.400", "gray.300");
   return (
     <Box
-      mb={{ sm: "205px", md: "75px", xl: "70px" }}
+      mb={{ sm: "55px", md: "75px", xl: "70px" }}
       borderRadius='15px'
       px='0px'
       display='flex'
