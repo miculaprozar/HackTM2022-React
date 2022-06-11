@@ -43,7 +43,7 @@ const Authors = ({ title, captions, data }) => {
               let count = 1;
               row.products.forEach(x => {
                 if (x.AIScore) {
-                  score += x.AIScore;
+                  score += x.AIScore ? x.AIScore : 0;
                   count++;
                 }
               })
