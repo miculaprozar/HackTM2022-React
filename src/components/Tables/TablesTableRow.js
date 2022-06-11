@@ -11,7 +11,7 @@ import {
 import React from "react";
 
 function TablesTableRow(props) {
-  const { logo, name, email, subdomain, domain, status, date } = props;
+  const { logo, firstName, lastName, companyName, email, deliveryDate, locationDetails, status, products, AIScoreAverage } = props;
   const textColor = useColorModeValue("gray.700", "white");
   const bgStatus = useColorModeValue("gray.400", "#1a202c");
   const colorStatus = useColorModeValue("white", "gray.400");
@@ -28,10 +28,10 @@ function TablesTableRow(props) {
               fontWeight="bold"
               minWidth="100%"
             >
-              {name}
+              {companyName}
             </Text>
             <Text fontSize="sm" color="gray.400" fontWeight="normal">
-              {email}
+              {firstName + " " + lastName}
             </Text>
           </Flex>
         </Flex>
@@ -40,17 +40,17 @@ function TablesTableRow(props) {
       <Td>
         <Flex direction="column">
           <Text fontSize="md" color={textColor} fontWeight="bold">
-            {domain}
+            {locationDetails}
           </Text>
           <Text fontSize="sm" color="gray.400" fontWeight="normal">
-            {subdomain}
+            {locationDetails}
           </Text>
         </Flex>
       </Td>
       <Td>
         <Badge
-          bg={status === "Online" ? "green.400" : bgStatus}
-          color={status === "Online" ? "white" : colorStatus}
+          bg={status === "Refuzat" ? "red.400" : bgStatus}
+          color={status === "In Procesare" ? "white" : colorStatus}
           fontSize="16px"
           p="3px 10px"
           borderRadius="8px"
@@ -60,7 +60,7 @@ function TablesTableRow(props) {
       </Td>
       <Td>
         <Text fontSize="md" color={textColor} fontWeight="bold" pb=".5rem">
-          {date}
+          {deliveryDate ? deliveryDate : "-"}
         </Text>
       </Td>
       <Td>
@@ -71,7 +71,7 @@ function TablesTableRow(props) {
             fontWeight="bold"
             cursor="pointer"
           >
-            Edit
+            {AIScoreAverage}
           </Text>
         </Button>
       </Td>
