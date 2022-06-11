@@ -11,47 +11,51 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 
-const ProjectCard = ({ image, name, category, avatars, description }) => {
+const ProjectCard = ({
+  image,
+  name,
+  category,
+  avatars,
+  description,
+  price,
+}) => {
   // Chakra color mode
   const textColor = useColorModeValue("gray.700", "white");
 
   return (
-    <Flex direction='column'>
-      <Box mb='20px' position='relative' borderRadius='15px'>
-        <Image src={image} borderRadius='15px' />
+    <Flex direction="column">
+      <Box mb="20px" position="relative" borderRadius="15px">
+        <Image src={image} borderRadius="15px" />
         <Box
-          w='100%'
-          h='100%'
-          position='absolute'
-          top='0'
-          borderRadius='15px'
-          bg='linear-gradient(360deg, rgba(49, 56, 96, 0.16) 0%, rgba(21, 25, 40, 0.88) 100%)'></Box>
+          w="100%"
+          h="100%"
+          position="absolute"
+          top="0"
+          borderRadius="15px"
+          bg="linear-gradient(360deg, rgba(49, 56, 96, 0.16) 0%, rgba(21, 25, 40, 0.88) 100%)"
+        ></Box>
       </Box>
-      <Flex direction='column'>
-        <Text fontSize='md' color='gray.500' fontWeight='600' mb='10px'>
-          {name}
+      <Flex direction="column">
+        <Text fontSize="md" color="gray.500" fontWeight="600" mb="10px">
+          {"Nume:" + " " + name}
         </Text>
-        <Text fontSize='xl' color={textColor} fontWeight='bold' mb='10px'>
-          {category}
+        <Text fontSize="xl" color={textColor} fontWeight="bold" mb="10px">
+          {"Price/Quantity :" + " " + price + "/" + category}
         </Text>
-        <Text fontSize='md' color='gray.500' fontWeight='400' mb='20px'>
-          {description}
+        <Text fontSize="md" color="gray.500" fontWeight="400" mb="20px">
+          {"Descriere:" + " " + description}
         </Text>
-        <Flex justifyContent='space-between'>
+        <Flex justifyContent="space-between">
           <Button
-            variant='outline'
-            colorScheme='teal'
-            minW='110px'
-            h='36px'
-            fontSize='xs'
-            px='1.5rem'>
-            VIEW PROJECT
+            variant="outline"
+            colorScheme="teal"
+            minW="110px"
+            h="36px"
+            fontSize="xs"
+            px="1.5rem"
+          >
+            Edit Product
           </Button>
-          <AvatarGroup size='xs'>
-            {avatars.map((el, idx) => {
-              return <Avatar src={el} key={idx} />;
-            })}
-          </AvatarGroup>
         </Flex>
       </Flex>
     </Flex>

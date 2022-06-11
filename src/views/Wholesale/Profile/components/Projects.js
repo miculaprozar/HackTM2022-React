@@ -29,7 +29,6 @@ const Projects = ({
   setOpenAddProductModal,
   reloadProducts,
 }) => {
-  console.log("reloadProducts", reloadProducts);
   // Chakra color mode
   const textColor = useColorModeValue("gray.700", "white");
 
@@ -69,7 +68,8 @@ const Projects = ({
           {userProducts?.map(({ name, description, quantity, price }) => (
             <ProjectCard
               image={imageArchitect1}
-              name={quantity + ""}
+              name={quantity}
+              price={price}
               category={name}
               description={description}
               avatars={[avatar2, avatar4, avatar6]}
