@@ -24,7 +24,7 @@ import { FaApple, FaFacebook, FaGoogle } from 'react-icons/fa';
 import { apiFactory } from '../../api_factory/index.ts';
 import { useHistory } from 'react-router-dom';
 
-function SignUp() {
+function SignUpProducer() {
   const titleColor = useColorModeValue('teal.300', 'teal.200');
   const textColor = useColorModeValue('gray.700', 'white');
   const bgColor = useColorModeValue('white', 'gray.700');
@@ -68,14 +68,13 @@ function SignUp() {
   const setUser = async (values) => {
     const user = await apiFactory()
       .data.account()
-      .register({ ...values, roleId: 1 });
+      .register({ ...values, roleId: 2 });
     const login = await apiFactory().data.account().login({
       email: values.email,
       password: values.password,
     });
     localStorage.setItem('token', login);
-
-    user && history.push('/wholesale/profile');
+    user && history.push('/producer/profile');
   };
 
   function onSubmit(values) {
@@ -115,7 +114,7 @@ function SignUp() {
         mb='30px'
       >
         <Text fontSize='4xl' color='white' fontWeight='bold'>
-          Welcome!
+          Welcome Local Farmer!
         </Text>
         <Text
           fontSize='md'
@@ -125,7 +124,7 @@ function SignUp() {
           mb='26px'
           w={{ base: '90%', sm: '60%', lg: '40%', xl: '30%' }}
         >
-          Sign up to start your business as a wholesale distributor.
+          Sign up to start your business as a local farmer.
         </Text>
       </Flex>
       <Flex alignItems='center' justifyContent='center' mb='60px' mt='20px'>
@@ -453,4 +452,4 @@ function SignUp() {
   );
 }
 
-export default SignUp;
+export default SignUpProducer;

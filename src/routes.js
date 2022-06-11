@@ -17,6 +17,7 @@ import ProducerComands from 'views/Wholesale/Comands';
 // import Billing from 'views/Dashboard/Billing';
 import SignIn from 'views/Auth/SignIn.js';
 import SignUp from 'views/Auth/WholesaleSignUp.js';
+import SignUpProducer from 'views/Auth/SignUpProducer.js';
 
 import {
   HomeIcon,
@@ -153,6 +154,15 @@ var dashRoutes = [
         icon: <RocketIcon color='inherit' />,
         secondaryNavbar: true,
         component: SignUp,
+        layout: '/auth',
+      },
+      {
+        path: '/signup-producer',
+        name: 'Sign Up',
+        rtlName: 'لوحة القيادة',
+        icon: <RocketIcon color='inherit' />,
+        secondaryNavbar: true,
+        component: SignUpProducer,
         layout: '/auth',
       },
     ],
