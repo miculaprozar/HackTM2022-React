@@ -119,7 +119,7 @@ export default function Dashboard(props) {
         <Portal>
           <AdminNavbar
             onOpen={onOpen}
-            logoText={'PURITY UI DASHBOARD'}
+            logoText={'Farm to Frok'}
             brandText={getActiveRoute(routes)}
             secondary={getActiveNavbar(routes)}
             fixed={fixed}
@@ -144,17 +144,6 @@ export default function Dashboard(props) {
             onOpen={onOpen}
           />
         </Portal>
-        <Configurator
-          secondary={getActiveNavbar(routes)}
-          isOpen={isOpen}
-          onClose={onClose}
-          isChecked={fixed}
-          onSwitch={(value) => {
-            setFixed(value);
-          }}
-          onOpaque={() => setSidebarVariant('opaque')}
-          onTransparent={() => setSidebarVariant('transparent')}
-        />
       </MainPanel>
     </ChakraProvider>
   );

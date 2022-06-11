@@ -87,7 +87,7 @@ export default function AuthNavbar(props) {
   );
   var linksAuth = (
     <HStack display={{ sm: 'none', lg: 'flex' }}>
-      <NavLink to='/auth/signup-producer'>
+      <NavLink to='/auth/signup-wholesale'>
         <Button
           fontSize='sm'
           ms='0px'
@@ -103,7 +103,7 @@ export default function AuthNavbar(props) {
           <Text>Wholesale Register</Text>
         </Button>
       </NavLink>
-      <NavLink to='/auth/signup-wholesale'>
+      <NavLink to='/auth/signup-producer'>
         <Button
           fontSize='sm'
           ms='0px'
