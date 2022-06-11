@@ -60,7 +60,7 @@ function Profile() {
         />
         <Conversations title={"Conversations"} />
       </Grid>
-      <Projects title={"Projects"} description={"Architects design houses"} />
+      <Projects title={"Products"} description={""} />
     </Flex>
   );
 }
