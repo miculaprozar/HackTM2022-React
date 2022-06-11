@@ -12,7 +12,7 @@ import {
 import Card from "components/Card/Card.js";
 import CardBody from "components/Card/CardBody.js";
 import CardHeader from "components/Card/CardHeader.js";
-import TablesTableRow from "components/Tables/TablesTableRow";
+import TablesTableRow from "components/TablesProducer/TablesTableRow";
 import React from "react";
 
 const Authors = ({ title, captions, data }) => {
@@ -39,16 +39,26 @@ const Authors = ({ title, captions, data }) => {
           </Thead>
           <Tbody>
             {data.map((row) => {
+              let score = 0;
+              let count = 1;
+              row.products.forEach(x => {
+                if (x.AIScore) {
+                  score += x.AIScore;
+                  count++;
+                }
+              })
               return (
                 <TablesTableRow
-                  key={`${row.email}-${row.name}`}
-                  name={row.name}
-                  logo={row.logo}
-                  email={row.email}
-                  subdomain={row.subdomain}
-                  domain={row.domain}
+                  key={`${row.id}`}
+                  firstName={row.customerFirstName}
+                  lastName={row.customerLastName}
+                  companyName={row.customerCompanyName}
+                  email={row.customerEmail}
+                  deliveryDate={row.deliveryDate}
+                  products={row.products}
                   status={row.status}
-                  date={row.date}
+                  locationDetails={row.locationDetails}
+                  AIScoreAverage={score / count}
                 />
               );
             })}

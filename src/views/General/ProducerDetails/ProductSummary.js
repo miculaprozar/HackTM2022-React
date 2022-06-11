@@ -22,13 +22,7 @@ const ProductSummary = ({ product }) => {
           {product.name}
         </Text>
         <Text fontSize='xl' color={textColor} fontWeight='bold' mb='10px'>
-          {product.price + '' + product.currency}
-        </Text>
-        <Text fontSize='md' color='gray.500' fontWeight='400' mb='20px'>
-          {product.description}
-        </Text>
-        <Text fontSize='xl' color={textColor} fontWeight='bold' mb='10px'>
-          {product.quantity + ' kg'}
+          {product.price + '' + product.currency} - {product.quantity + ' kg'}
         </Text>
       </Flex>
     </Flex>

@@ -11,8 +11,8 @@ import Comands from 'views/Wholesale/Comands';
 
 // Producer Components
 import ProducerProfile from 'views/Wholesale/Profile';
-import ProducerContracts from 'views/Wholesale/Contracts';
-import ProducerComands from 'views/Wholesale/Comands';
+import ProducerContracts from 'views/Producer/Contracts';
+import ProducerComands from 'views/Producer/Comands';
 
 // AUTH ROUTES';
 import SignIn from 'views/Auth/SignIn.js';

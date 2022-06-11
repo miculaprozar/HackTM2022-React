@@ -51,8 +51,9 @@ const ActualMap = compose(
           let position = refs.marker.getPosition().toString();
           //remove first and last char from position
           position = position.substring(1, position.length - 1);
-
           const coords = position.split(',');
+          console.log(coords);
+
           this.props.handleSetPosition({
             latitude: coords[0],
             longitude: coords[1].substring(1, position.length),
