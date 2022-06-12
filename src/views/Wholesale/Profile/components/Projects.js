@@ -67,16 +67,19 @@ const Projects = ({
           templateRows={{ sm: "1fr 1fr 1fr auto", md: "1fr 1fr", xl: "1fr" }}
           gap="24px"
         >
-          {userProducts?.map(({ name, description, quantity, price }) => (
-            <ProjectCard
-              image={imageArchitect1}
-              name={quantity}
-              price={price}
-              category={name}
-              description={description}
-              avatars={[avatar2, avatar4, avatar6]}
-            />
-          ))}
+          {userProducts?.map(({ name, description, quantity, price, id }) => {
+            return (
+              <ProjectCard
+                image={imageArchitect1}
+                name={quantity}
+                price={price}
+                category={name}
+                description={description}
+                avatars={[avatar2, avatar4, avatar6]}
+                productId={id}
+              />
+            );
+          })}
 
           <Button
             p="0px"
