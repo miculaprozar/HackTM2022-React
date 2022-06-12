@@ -14,16 +14,16 @@ import {
   useColorModeValue,
   FormErrorMessage,
 } from '@chakra-ui/react';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
+import {useForm} from 'react-hook-form';
+import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 // Assets
 import BgSignUp from 'assets/img/BgSignUp.png';
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import Map from 'components/Map/map';
-import { FaApple, FaFacebook, FaGoogle } from 'react-icons/fa';
-import { apiFactory } from '../../api_factory/index.ts';
-import { useHistory } from 'react-router-dom';
+import {FaApple, FaFacebook, FaGoogle} from 'react-icons/fa';
+import {apiFactory} from '../../api_factory/index.ts';
+import {useHistory} from 'react-router-dom';
 import _ from 'lodash';
 import Geocode from 'react-geocode';
 
@@ -72,7 +72,7 @@ function SignUpProducer() {
     Geocode.fromLatLng(position.latitude, position.longitude).then(
       (response) => {
         const address = response.results[1].formatted_address;
-        console.log(position)
+        console.log(position);
         setCurrentAdress(address);
         setMarkerLocation({
           lat: Number(position.latitude),
@@ -88,7 +88,7 @@ function SignUpProducer() {
   const {
     handleSubmit,
     register,
-    formState: { errors, isSubmitting },
+    formState: {errors, isSubmitting},
   } = useForm({
     resolver: yupResolver(validationSchema),
   });
@@ -96,15 +96,13 @@ function SignUpProducer() {
   const setUser = async (values) => {
     const user = await apiFactory()
       .data.account()
-      .register({ ...values, roleId: 2 });
+      .register({...values, roleId: 2});
     const login = await apiFactory().data.account().login({
       email: values.email,
       password: values.password,
     });
     localStorage.setItem('token', login);
-    const userDataArray = await apiFactory()
-      .data.account()
-      .getCurrentUser();
+    const userDataArray = await apiFactory().data.account().getCurrentUser();
     const userData = userDataArray[0];
     localStorage.setItem('userData', JSON.stringify(userData));
 
@@ -116,7 +114,7 @@ function SignUpProducer() {
       const locationToAdd = {
         longitude: markerLocation.lng,
         latitude: markerLocation.lat,
-        details: values.address,
+        details: currentAdress.normalize('NFD').replace(/[\u0300-\u036f]/g, ''),
       };
       console.log(locationToAdd);
       const addLocationResponse = await apiFactory()
@@ -137,324 +135,324 @@ function SignUpProducer() {
 
   return (
     <Flex
-      direction='column'
-      alignSelf='center'
-      justifySelf='center'
-      overflow='hidden'
+      direction="column"
+      alignSelf="center"
+      justifySelf="center"
+      overflow="hidden"
     >
       <Box
-        position='absolute'
-        minH={{ base: '70vh', md: '50vh' }}
-        w={{ md: 'calc(100vw - 50px)' }}
-        borderRadius={{ md: '15px' }}
-        left='0'
-        right='0'
-        bgRepeat='no-repeat'
-        overflow='hidden'
-        zIndex='-1'
-        top='0'
+        position="absolute"
+        minH={{base: '70vh', md: '50vh'}}
+        w={{md: 'calc(100vw - 50px)'}}
+        borderRadius={{md: '15px'}}
+        left="0"
+        right="0"
+        bgRepeat="no-repeat"
+        overflow="hidden"
+        zIndex="-1"
+        top="0"
         bgImage={BgSignUp}
-        bgSize='cover'
-        mx={{ md: 'auto' }}
-        mt={{ md: '14px' }}
+        bgSize="cover"
+        mx={{md: 'auto'}}
+        mt={{md: '14px'}}
       ></Box>
       <Flex
-        direction='column'
-        textAlign='center'
-        justifyContent='center'
-        align='center'
-        mt='6.5rem'
-        mb='30px'
+        direction="column"
+        textAlign="center"
+        justifyContent="center"
+        align="center"
+        mt="6.5rem"
+        mb="30px"
       >
-        <Text fontSize='4xl' color='white' fontWeight='bold'>
+        <Text fontSize="4xl" color="white" fontWeight="bold">
           Welcome Local Farmer!
         </Text>
         <Text
-          fontSize='md'
-          color='white'
-          fontWeight='normal'
-          mt='10px'
-          mb='26px'
-          w={{ base: '90%', sm: '60%', lg: '40%', xl: '30%' }}
+          fontSize="md"
+          color="white"
+          fontWeight="normal"
+          mt="10px"
+          mb="26px"
+          w={{base: '90%', sm: '60%', lg: '40%', xl: '30%'}}
         >
           Sign up to start your business as a local farmer.
         </Text>
       </Flex>
-      <Flex alignItems='center' justifyContent='center' mb='60px' mt='20px'>
+      <Flex alignItems="center" justifyContent="center" mb="60px" mt="20px">
         <Flex
-          direction='column'
-          w='1000px'
-          background='transparent'
-          borderRadius='15px'
-          p='40px'
-          mx={{ base: '100px' }}
+          direction="column"
+          w="1000px"
+          background="transparent"
+          borderRadius="15px"
+          p="40px"
+          mx={{base: '100px'}}
           bg={bgColor}
-          boxShadow='0 20px 27px 0 rgb(0 0 0 / 5%)'
+          boxShadow="0 20px 27px 0 rgb(0 0 0 / 5%)"
         >
           <Text
-            fontSize='xl'
+            fontSize="xl"
             color={textColor}
-            fontWeight='bold'
-            textAlign='center'
-            mb='22px'
+            fontWeight="bold"
+            textAlign="center"
+            mb="22px"
           >
             Register
           </Text>
 
           <Text
-            fontSize='lg'
-            color='gray.400'
-            fontWeight='bold'
-            textAlign='center'
-            mb='22px'
+            fontSize="lg"
+            color="gray.400"
+            fontWeight="bold"
+            textAlign="center"
+            mb="22px"
           >
             or
           </Text>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <Flex justify='space-between' align='center' wrap='wrap'>
+            <Flex justify="space-between" align="center" wrap="wrap">
               <FormControl
                 isInvalid={errors.firstName}
-                width='48%'
+                width="48%"
                 minWidth={'300px'}
               >
                 <FormLabel
-                  ms='4px'
-                  fontSize='sm'
-                  fontWeight='normal'
-                  htmlFor='firstName'
+                  ms="4px"
+                  fontSize="sm"
+                  fontWeight="normal"
+                  htmlFor="firstName"
                 >
                   First Name
                 </FormLabel>
                 <Input
-                  fontSize='sm'
-                  ms='4px'
-                  borderRadius='15px'
-                  type='text'
-                  placeholder='Your first name'
+                  fontSize="sm"
+                  ms="4px"
+                  borderRadius="15px"
+                  type="text"
+                  placeholder="Your first name"
                   mb={`${!errors.firstName ? '24px' : '0px'}`}
-                  size='lg'
-                  id='firstName'
+                  size="lg"
+                  id="firstName"
                   {...register('firstName')}
                 />
-                <FormErrorMessage mb='24px'>
+                <FormErrorMessage mb="24px">
                   {errors.firstName?.message}
                 </FormErrorMessage>
               </FormControl>
-              <FormControl isInvalid={errors.email} width='48%'>
+              <FormControl isInvalid={errors.email} width="48%">
                 <FormLabel
-                  ms='4px'
-                  fontSize='sm'
-                  fontWeight='normal'
-                  htmlFor='email'
+                  ms="4px"
+                  fontSize="sm"
+                  fontWeight="normal"
+                  htmlFor="email"
                 >
                   Email
                 </FormLabel>
                 <Input
-                  fontSize='sm'
-                  ms='4px'
-                  borderRadius='15px'
-                  placeholder='Your email address'
+                  fontSize="sm"
+                  ms="4px"
+                  borderRadius="15px"
+                  placeholder="Your email address"
                   mb={`${!errors.email ? '24px' : '0px'}`}
-                  size='lg'
-                  id='email'
+                  size="lg"
+                  id="email"
                   {...register('email')}
                 />
-                <FormErrorMessage mb='24px'>
+                <FormErrorMessage mb="24px">
                   {errors.email?.message}
                 </FormErrorMessage>
               </FormControl>
 
               <FormControl isInvalid={errors.password}>
                 <FormLabel
-                  ms='4px'
-                  fontSize='sm'
-                  fontWeight='normal'
-                  htmlFor='password'
+                  ms="4px"
+                  fontSize="sm"
+                  fontWeight="normal"
+                  htmlFor="password"
                 >
                   Password
                 </FormLabel>
                 <Input
-                  fontSize='sm'
-                  ms='4px'
-                  borderRadius='15px'
-                  type='password'
-                  placeholder='Your password'
+                  fontSize="sm"
+                  ms="4px"
+                  borderRadius="15px"
+                  type="password"
+                  placeholder="Your password"
                   mb={`${!errors.password ? '24px' : '0px'}`}
-                  size='lg'
-                  id='password'
+                  size="lg"
+                  id="password"
                   {...register('password')}
                 />
-                <FormErrorMessage mb='24px'>
+                <FormErrorMessage mb="24px">
                   {errors.password?.message}
                 </FormErrorMessage>
               </FormControl>
 
               <FormControl isInvalid={errors.seccondPassword}>
                 <FormLabel
-                  ms='4px'
-                  fontSize='sm'
-                  fontWeight='normal'
-                  htmlFor='seccondPassword'
+                  ms="4px"
+                  fontSize="sm"
+                  fontWeight="normal"
+                  htmlFor="seccondPassword"
                 >
                   Confirm password
                 </FormLabel>
                 <Input
-                  fontSize='sm'
-                  ms='4px'
-                  borderRadius='15px'
-                  type='password'
-                  placeholder='Your seccond password'
+                  fontSize="sm"
+                  ms="4px"
+                  borderRadius="15px"
+                  type="password"
+                  placeholder="Your seccond password"
                   mb={`${!errors.seccondPassword ? '24px' : '0px'}`}
-                  size='lg'
-                  id='seccondPassword'
+                  size="lg"
+                  id="seccondPassword"
                   {...register('seccondPassword')}
                 />
-                <FormErrorMessage mb='24px'>
+                <FormErrorMessage mb="24px">
                   {errors.seccondPassword?.message}
                 </FormErrorMessage>
               </FormControl>
 
               <FormControl isInvalid={errors.lastName}>
                 <FormLabel
-                  ms='4px'
-                  fontSize='sm'
-                  fontWeight='normal'
-                  htmlFor='lastName'
+                  ms="4px"
+                  fontSize="sm"
+                  fontWeight="normal"
+                  htmlFor="lastName"
                 >
                   Last name
                 </FormLabel>
                 <Input
-                  fontSize='sm'
-                  ms='4px'
-                  borderRadius='15px'
-                  type='lastName'
-                  placeholder='Your lastName'
+                  fontSize="sm"
+                  ms="4px"
+                  borderRadius="15px"
+                  type="lastName"
+                  placeholder="Your lastName"
                   mb={`${!errors.lastName ? '24px' : '0px'}`}
-                  size='lg'
-                  id='lastName'
+                  size="lg"
+                  id="lastName"
                   {...register('lastName')}
                 />
-                <FormErrorMessage mb='24px'>
+                <FormErrorMessage mb="24px">
                   {errors.lastName?.message}
                 </FormErrorMessage>
               </FormControl>
 
               <FormControl isInvalid={errors.companyName}>
                 <FormLabel
-                  ms='4px'
-                  fontSize='sm'
-                  fontWeight='normal'
-                  htmlFor='companyName'
+                  ms="4px"
+                  fontSize="sm"
+                  fontWeight="normal"
+                  htmlFor="companyName"
                 >
                   Company Name
                 </FormLabel>
                 <Input
-                  fontSize='sm'
-                  ms='4px'
-                  borderRadius='15px'
-                  placeholder='Your companyName'
+                  fontSize="sm"
+                  ms="4px"
+                  borderRadius="15px"
+                  placeholder="Your companyName"
                   mb={`${!errors.companyName ? '24px' : '0px'}`}
-                  size='lg'
-                  id='companyName'
+                  size="lg"
+                  id="companyName"
                   {...register('companyName')}
                 />
-                <FormErrorMessage mb='24px'>
+                <FormErrorMessage mb="24px">
                   {errors.companyName?.message}
                 </FormErrorMessage>
               </FormControl>
 
               <FormControl isInvalid={errors.companyVAT}>
                 <FormLabel
-                  ms='4px'
-                  fontSize='sm'
-                  fontWeight='normal'
-                  htmlFor='companyVAT'
+                  ms="4px"
+                  fontSize="sm"
+                  fontWeight="normal"
+                  htmlFor="companyVAT"
                 >
                   Company Vat
                 </FormLabel>
                 <Input
-                  fontSize='sm'
-                  ms='4px'
-                  borderRadius='15px'
-                  placeholder='Your companyVAT'
+                  fontSize="sm"
+                  ms="4px"
+                  borderRadius="15px"
+                  placeholder="Your companyVAT"
                   mb={`${!errors.companyVAT ? '24px' : '0px'}`}
-                  size='lg'
-                  id='companyVAT'
+                  size="lg"
+                  id="companyVAT"
                   {...register('companyVAT')}
                 />
-                <FormErrorMessage mb='24px'>
+                <FormErrorMessage mb="24px">
                   {errors.companyVAT?.message}
                 </FormErrorMessage>
               </FormControl>
 
               <FormControl isInvalid={errors.companyRegNumber}>
                 <FormLabel
-                  ms='4px'
-                  fontSize='sm'
-                  fontWeight='normal'
-                  htmlFor='companyRegNumber'
+                  ms="4px"
+                  fontSize="sm"
+                  fontWeight="normal"
+                  htmlFor="companyRegNumber"
                 >
                   Register Number
                 </FormLabel>
                 <Input
-                  fontSize='sm'
-                  ms='4px'
-                  borderRadius='15px'
-                  placeholder='Your Register Number'
+                  fontSize="sm"
+                  ms="4px"
+                  borderRadius="15px"
+                  placeholder="Your Register Number"
                   mb={`${!errors.companyRegNumber ? '24px' : '0px'}`}
-                  size='lg'
-                  id='companyRegNumber'
+                  size="lg"
+                  id="companyRegNumber"
                   {...register('companyRegNumber')}
                 />
-                <FormErrorMessage mb='24px'>
+                <FormErrorMessage mb="24px">
                   {errors.companyRegNumber?.message}
                 </FormErrorMessage>
               </FormControl>
 
               <FormControl isInvalid={errors.companyIBAN}>
                 <FormLabel
-                  ms='4px'
-                  fontSize='sm'
-                  fontWeight='normal'
-                  htmlFor='companyIBAN'
+                  ms="4px"
+                  fontSize="sm"
+                  fontWeight="normal"
+                  htmlFor="companyIBAN"
                 >
                   Company IBAN
                 </FormLabel>
                 <Input
-                  fontSize='sm'
-                  ms='4px'
-                  borderRadius='15px'
-                  placeholder='Your company IBAN'
+                  fontSize="sm"
+                  ms="4px"
+                  borderRadius="15px"
+                  placeholder="Your company IBAN"
                   mb={`${!errors.companyIBAN ? '24px' : '0px'}`}
-                  size='lg'
-                  id='companyIBAN'
+                  size="lg"
+                  id="companyIBAN"
                   {...register('companyIBAN')}
                 />
-                <FormErrorMessage mb='24px'>
+                <FormErrorMessage mb="24px">
                   {errors.companyIBAN?.message}
                 </FormErrorMessage>
               </FormControl>
 
               <FormControl isInvalid={errors.details}>
                 <FormLabel
-                  ms='4px'
-                  fontSize='sm'
-                  fontWeight='normal'
-                  htmlFor='details'
+                  ms="4px"
+                  fontSize="sm"
+                  fontWeight="normal"
+                  htmlFor="details"
                 >
                   Details
                 </FormLabel>
                 <Input
-                  fontSize='sm'
-                  ms='4px'
-                  borderRadius='15px'
-                  placeholder='Your details'
+                  fontSize="sm"
+                  ms="4px"
+                  borderRadius="15px"
+                  placeholder="Your details"
                   mb={`${!errors.password ? '24px' : '0px'}`}
-                  size='lg'
-                  id='details'
+                  size="lg"
+                  id="details"
                   {...register('details')}
                 />
-                <FormErrorMessage mb='24px'>
+                <FormErrorMessage mb="24px">
                   {errors.details?.message}
                 </FormErrorMessage>
               </FormControl>
@@ -475,14 +473,14 @@ function SignUpProducer() {
               />
 
               <Button
-                type='submit'
-                bg='teal.300'
-                fontSize='10px'
-                color='white'
-                fontWeight='bold'
-                w='100%'
-                h='45'
-                mb='24px'
+                type="submit"
+                bg="teal.300"
+                fontSize="10px"
+                color="white"
+                fontWeight="bold"
+                w="100%"
+                h="45"
+                mb="24px"
                 _hover={{
                   bg: 'teal.200',
                 }}
@@ -495,20 +493,20 @@ function SignUpProducer() {
             </Flex>
           </form>
           <Flex
-            flexDirection='column'
-            justifyContent='center'
-            alignItems='center'
-            maxW='100%'
-            mt='0px'
+            flexDirection="column"
+            justifyContent="center"
+            alignItems="center"
+            maxW="100%"
+            mt="0px"
           >
-            <Text color={textColor} fontWeight='medium'>
+            <Text color={textColor} fontWeight="medium">
               Already have an account?
               <Link
                 color={titleColor}
-                as='span'
-                ms='5px'
-                href='/auth/signin'
-                fontWeight='bold'
+                as="span"
+                ms="5px"
+                href="/auth/signin"
+                fontWeight="bold"
               >
                 Sign In
               </Link>

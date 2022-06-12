@@ -1,16 +1,18 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, Component} from 'react';
 import {compose, withProps, lifecycle} from 'recompose';
 import {
   withScriptjs,
   withGoogleMap,
   GoogleMap,
   Marker,
+  InfoWindow,
 } from 'react-google-maps';
 
 import {useHistory} from 'react-router-dom';
 
 const Map = (props) => {
   const history = useHistory();
+
   return (
     <>
       <ActualMap
@@ -21,6 +23,42 @@ const Map = (props) => {
     </>
   );
 };
+
+class CustomMarker extends Component {
+  state = {
+    showInfoWindow: false,
+  };
+  handleMouseOver = (e) => {
+    this.setState({
+      showInfoWindow: true,
+    });
+  };
+  handleMouseExit = (e) => {
+    this.setState({
+      showInfoWindow: false,
+    });
+  };
+  render() {
+    const {showInfoWindow} = this.state;
+    const {info, lat, lng, idu} = this.props;
+    return (
+      <Marker
+        position={{lat, lng}}
+        onMouseOver={this.handleMouseOver}
+        onMouseOut={this.handleMouseExit}
+        onClick={() => {
+          this.props.history.push(`/wholesale/producer/${idu}`);
+        }}
+      >
+        {showInfoWindow && (
+          <InfoWindow>
+            <h4>{info}</h4>
+          </InfoWindow>
+        )}
+      </Marker>
+    );
+  }
+}
 
 const ActualMap = compose(
   withProps({
@@ -79,20 +117,13 @@ const ActualMap = compose(
       props.localFarmers.map((farmer) => {
         console.log(farmer);
         return (
-          <Marker
-            draggable={false}
-            key={farmer.id}
-            position={{
-              lat: farmer.locations[0].latitude,
-              lng: farmer.locations[0].longitude,
-            }}
-            onClick={() => {
-              props.history.push(`/wholesale/producer/${farmer.id}`);
-            }}
-            onMouseOver={() => {
-              console.log('mouse over');
-            }}
-          ></Marker>
+          <CustomMarker
+            lat={farmer.locations[0].latitude}
+            lng={farmer.locations[0].longitude}
+            info={farmer.companyName}
+            idu={farmer.id}
+            {...props}
+          ></CustomMarker>
         );
       })}
   </GoogleMap>
