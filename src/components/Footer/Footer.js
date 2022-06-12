@@ -33,7 +33,7 @@ export default function Footer(props) {
             : 'Made with ❤️ by Digital Garden'}
         </Text>
       </Text>
-      <List display='flex'>
+      {/*  <List display='flex'>
         <ListItem
           me={{
             base: '20px',
@@ -57,7 +57,7 @@ export default function Footer(props) {
             Wholesale Market
           </Link>
         </ListItem>
-      </List>
+      </List> */}
     </Flex>
   );
 }

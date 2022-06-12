@@ -14,7 +14,7 @@ import AddProductModal from "./components/AddProductModal";
 import Projects from "./components/Projects";
 import EditProfileForm from "./components/EditProfileForm";
 import { apiFactory } from "../../../api_factory/index.ts";
-
+const userData = localStorage.getItem("userData");
 function Profile() {
   // Chakra color mode
   const textColor = useColorModeValue("gray.700", "white");
@@ -71,12 +71,14 @@ function Profile() {
           setRefetchUserInformation={setRefetchUserInformation}
         />
       </Grid>
-      <Projects
-        title={"Projects"}
-        description={"Architects design houses"}
-        setOpenAddProductModal={setOpenAddProductModal}
-        reloadProducts={openAddProductModal}
-      />
+      {userInformation?.roleId !== 1 && (
+        <Projects
+          title={"Products"}
+          description={"You're list of products"}
+          setOpenAddProductModal={setOpenAddProductModal}
+          reloadProducts={openAddProductModal}
+        />
+      )}
       <AddProductModal isOpen={openAddProductModal} onClose={onClose} />
     </Flex>
   );

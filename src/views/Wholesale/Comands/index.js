@@ -1,102 +1,34 @@
 // Chakra imports
-import { Flex } from '@chakra-ui/react';
-import React from 'react';
-import Commands from './components/Commands';
-import Projects from './components/Projects';
-import { tablesTableData, dashboardTableData } from 'variables/general';
+import { Flex } from "@chakra-ui/react";
+import React, { useState, useEffect } from "react";
+import Commands from "./components/Commands";
+import Projects from "./components/Projects";
+import { tablesTableData, dashboardTableData } from "variables/general";
+import { apiFactory } from "../../../api_factory/index.ts";
 
 function Tables() {
+  const [orders, setOrders] = useState(null);
+
+  const getComands = async () => {
+    const userData = localStorage.getItem("userData");
+
+    const { id } = JSON.parse(userData);
+
+    const order = await apiFactory().data.account().getOrderBySeller(id);
+    setOrders(order);
+  };
+
+  useEffect(() => {
+    getComands();
+  }, []);
+
   return (
-    <Flex direction='column' pt={{ base: '120px', md: '75px' }}>
+    <Flex direction="column" pt={{ base: "120px", md: "75px" }}>
       <Commands
-        title={'Commands'}
-        captions={['Seller', 'Location', 'Status', 'Delivery', 'AI Rating']}
-        data={[
-          {
-            "id": 41,
-            "customerId": 1,
-            "sellerId": 11,
-            "details": "",
-            "locationId": 1,
-            "statusId": 1,
-            "deliveryDate": null,
-            "customerEmail": "tudor@gmail.com",
-            "customerFirstName": "Test",
-            "customerLastName": "Test",
-            "customerCompanyName": "test",
-            "customerVAT": "test",
-            "customerRegNumber": "test nr",
-            "customerIBAN": "test",
-            "sellerFirstName": "Test",
-            "sellerLastName": "Test",
-            "sellerCompanyName": "test seller",
-            "sellerVAT": "test seller",
-            "sellerRegNumber": "test seller",
-            "sellerIBAN": "test seller",
-            "longitude": 1.1,
-            "latitude": 1.2,
-            "locationDetails": "Test schimbat",
-            "status": "In procesare",
-            "products": [
-              {
-                "productId": 11,
-                "productName": "Test Product",
-                "productDescription": "test test 2 10",
-                "quantity": 1.2,
-                "measurementUnit": "Kg",
-                "price": 1,
-                "currency": "euro",
-                "AIScore": null,
-                "AIDetails": null
-              }
-            ]
-          },
-          {
-            "id": 51,
-            "customerId": 1,
-            "sellerId": 11,
-            "details": "",
-            "locationId": 1,
-            "statusId": 2,
-            "deliveryDate": null,
-            "customerEmail": "tudor@gmail.com",
-            "customerFirstName": "Test",
-            "customerLastName": "Test",
-            "customerCompanyName": "test",
-            "customerVAT": "test",
-            "customerRegNumber": "test nr",
-            "customerIBAN": "test",
-            "sellerFirstName": "Test",
-            "sellerLastName": "Test",
-            "sellerCompanyName": null,
-            "sellerVAT": null,
-            "sellerRegNumber": null,
-            "sellerIBAN": null,
-            "longitude": 1.1,
-            "latitude": 1.2,
-            "locationDetails": "Test schimbat",
-            "status": "Refuzat",
-            "products": [
-              {
-                "productId": 11,
-                "productName": "Test Product",
-                "productDescription": "test test 2 10",
-                "quantity": 1.2,
-                "measurementUnit": "Kg",
-                "price": 1,
-                "currency": "euro",
-                "AIScore": 2.1,
-                "AIDetails": "test"
-              }
-            ]
-          }
-        ]}
+        title={"Commands"}
+        captions={["Seller", "Location", "Status", "Delivery", "AI Rating"]}
+        data={orders}
       />
-      {/* <Projects
-        title={"Projects Table"}
-        captions={["Companies", "Budget", "Status", "Completion", ""]}
-        data={dashboardTableData}
-      /> */}
     </Flex>
   );
 }

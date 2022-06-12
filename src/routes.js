@@ -67,7 +67,7 @@ var dashRoutes = [
         secondaryNavbar: true,
         component: WholesaleProfile,
         layout: '/wholesale',
-      },
+      }/* ,
       {
         path: '/contracts',
         name: 'Contracts',
@@ -75,10 +75,10 @@ var dashRoutes = [
         secondaryNavbar: true,
         component: Contracts,
         layout: '/wholesale',
-      },
+      } */,
       {
         path: '/comands',
-        name: 'Contracts',
+        name: 'Commands',
         icon: <CreditIcon color="inherit" />,
         secondaryNavbar: true,
         component: Comands,
@@ -99,7 +99,7 @@ var dashRoutes = [
         secondaryNavbar: true,
         component: ProducerProfile,
         layout: '/producer',
-      },
+      }/* ,
       {
         path: '/contracts',
         name: 'Contracts',
@@ -107,7 +107,7 @@ var dashRoutes = [
         secondaryNavbar: true,
         component: ProducerContracts,
         layout: '/producer',
-      },
+      } */,
       {
         path: '/comands',
         name: 'Comands',
