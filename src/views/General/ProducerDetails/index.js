@@ -99,7 +99,10 @@ function ProducerDetails() {
                   return (
                     <ProductDetailCard
                       product={product}
-                      image='https://picsum.photos/400/200'
+                      image={
+                        'https://storage.googleapis.com/farmtofork/' +
+                        product.id
+                      }
                       handleAddProduct={handleAddProduct}
                     />
                   );
