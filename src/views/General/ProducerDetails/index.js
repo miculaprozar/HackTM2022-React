@@ -97,14 +97,14 @@ function ProducerDetails() {
               >
                 {producer.products.map((product) => {
                   return (
-                    <ProductDetailCard
-                      product={product}
-                      image={
-                        'https://storage.googleapis.com/farmtofork/' +
-                        product.id
-                      }
-                      handleAddProduct={handleAddProduct}
-                    />
+                    // <ProductDetailCard
+                    //   product={product}
+                    //   image={
+                    //     'https://storage.googleapis.com/farmtofork/' +
+                    //     product.id
+                    //   }
+                    //   handleAddProduct={handleAddProduct}
+                    // />
                   );
                 })}
               </Grid>

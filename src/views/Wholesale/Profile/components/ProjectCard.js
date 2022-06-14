@@ -26,13 +26,13 @@ const ProjectCard = ({
   return (
     <Flex direction="column">
       <Box mb="20px" position="relative" borderRadius="15px">
-        <Image
+        {/* <Image
           src={`https://storage.googleapis.com/farmtofork/${productId}`}
           borderRadius="15px"
           height="200px"
           objectFit="cover"
           width="100%"
-        />
+        /> */}
         <Box
           w="100%"
           h="100%"

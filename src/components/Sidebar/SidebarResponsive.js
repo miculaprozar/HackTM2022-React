@@ -206,7 +206,7 @@ function SidebarResponsive(props) {
           <Text fontSize="sm" mt="3px">
             {logoText}
           </Text> */}
-        <img src="https://storage.googleapis.com/farmtofork/Black%20Primary.png" style={{ width: "80%" }}></img>
+        {/* <img src="https://storage.googleapis.com/farmtofork/Black%20Primary.png" style={{ width: "80%" }}></img> */}
       </Link>
       <Separator></Separator>
     </Box>
