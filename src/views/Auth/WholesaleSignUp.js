@@ -27,7 +27,7 @@ import Map from 'components/Map/map';
 import _ from 'lodash';
 import Geocode from 'react-geocode';
 
-Geocode.setApiKey('AIzaSyAaTB74UBsFLP-FWRQ3yaXKwOgs2TDYNfI');
+Geocode.setApiKey('xxxxxxxxxxx');
 Geocode.setLanguage('en');
 
 function SignUp() {

@@ -27,7 +27,7 @@ import {useHistory} from 'react-router-dom';
 import _ from 'lodash';
 import Geocode from 'react-geocode';
 
-Geocode.setApiKey('AIzaSyAaTB74UBsFLP-FWRQ3yaXKwOgs2TDYNfI');
+Geocode.setApiKey('xxxxxxx');
 Geocode.setLanguage('en');
 
 function SignUpProducer() {
